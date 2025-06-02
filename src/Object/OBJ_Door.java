@@ -12,5 +12,6 @@ public class OBJ_Door extends SuperObject{
         }catch(IOException e){
             System.out.println(" error getting image ressource");
         }
+        collision = true;
     }
 }
