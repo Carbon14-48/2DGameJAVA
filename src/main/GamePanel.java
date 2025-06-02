@@ -37,6 +37,7 @@ TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
       public   Player player = new Player(this, keyH);
     Thread gameThread;
+ public  CollisionChecker cChecker=new CollisionChecker(this);
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
