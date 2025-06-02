@@ -2,6 +2,7 @@ package main;
 
 import javax.swing.JPanel;
 
+import Object.SuperObject;
 import entity.Player;
 import tile.TileManager;
 
@@ -38,6 +39,12 @@ TileManager tileM = new TileManager(this);
       public   Player player = new Player(this, keyH);
     Thread gameThread;
  public  CollisionChecker cChecker=new CollisionChecker(this);
+public AssetSetter aSetter = new AssetSetter(this);
+public SuperObject obj[]=new SuperObject[10];
+
+
+
+
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
@@ -48,6 +55,12 @@ TileManager tileM = new TileManager(this);
     }
 
     
+    public void setupGame(){
+        aSetter.setObject();
+    }
+
+
+
    
      public void startGameThread(){
         gameThread = new Thread(this);
@@ -88,8 +101,16 @@ TileManager tileM = new TileManager(this);
 
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g;
-            
+            //tile
             tileM.draw(g2);
+
+            //object 
+            for(int i =0 ;i<obj.length;i++){
+                if(obj[i]!=null){
+                    obj[i].draw(g2,this);
+                }
+            }
+            //player
             player.draw(g2);
              // Draw FPS
             g2.setColor(Color.YELLOW);
