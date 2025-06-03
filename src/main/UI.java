@@ -1,8 +1,6 @@
 package main;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
-import Object.OBJ_Key;
 public class UI {
     GamePanel gp;
     Font arial_40, arial_80B ;
