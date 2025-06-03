@@ -6,9 +6,11 @@ import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 public class Sound {
   private Clip clip;
+  private FloatControl volumeControl;
 
 private URL soundURL[]= new URL[30];
 
@@ -48,4 +50,7 @@ try {
 
 
 
- }}
+ }
+ 
+}
+

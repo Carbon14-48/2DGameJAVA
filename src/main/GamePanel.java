@@ -131,13 +131,10 @@ public void stopMusic(){
     sound.stop();
 }
 
-public void playSE(int i ){
-
-
+public void playSE(int i){
     sound.setFile(i);
     sound.play();
 }
-
 
 
 
