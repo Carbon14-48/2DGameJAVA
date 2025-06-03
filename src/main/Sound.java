@@ -6,11 +6,11 @@ import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
+
 
 public class Sound {
   private Clip clip;
-  private FloatControl volumeControl;
+  
 
 private URL soundURL[]= new URL[30];
 
@@ -19,7 +19,7 @@ private URL soundURL[]= new URL[30];
     soundURL[1]=getClass().getResource("/sounds/coin.wav");
     soundURL[2]=getClass().getResource("/sounds/powerup.wav");
     soundURL[3]=getClass().getResource("/sounds/unlock.wav");
-    soundURL[4]=getClass().getResource("/sounds/fanfar.wav");
+    soundURL[4]=getClass().getResource("/sounds/fanfare.wav");
  }
 
  public void setFile(int i){

@@ -39,12 +39,14 @@ public class GamePanel extends JPanel implements Runnable{
       public   Player player = new Player(this, keyH);
     Thread gameThread;
  public  CollisionChecker cChecker=new CollisionChecker(this);
+ public UI ui = new UI(this);
  // objects 
 public AssetSetter aSetter = new AssetSetter(this);
 public SuperObject obj[]=new SuperObject[10];
 
 //sound 
-Sound sound = new Sound();
+Sound music = new Sound();
+Sound se = new Sound();
 
 
     public GamePanel(){
@@ -113,6 +115,8 @@ Sound sound = new Sound();
             }
             //player
             player.draw(g2);
+
+            ui.draw(g2);
              // Draw FPS
             g2.setColor(Color.YELLOW);
             g2.setFont(new Font("Arial", Font.BOLD, 20));
@@ -121,19 +125,19 @@ Sound sound = new Sound();
         }
 
 public void playMusic(int i){
-    sound.setFile(i);
-    sound.play();
-    sound.loop();
+    music.setFile(i);
+    music.play();
+    music.loop();
 }
 
 
 public void stopMusic(){
-    sound.stop();
+    music.stop();
 }
 
 public void playSE(int i){
-    sound.setFile(i);
-    sound.play();
+    se.setFile(i);
+    se.play();
 }
 
 

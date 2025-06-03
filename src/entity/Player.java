@@ -19,7 +19,7 @@ public class Player extends Entity{
     KeyHandler keyH;
     public final  int screenX;
     public final int screenY;
-     private int hasKey=0;
+     public int hasKey=0;
     public Player (GamePanel gp , KeyHandler keyH){
         this.gp=gp;
         this.keyH=keyH;
@@ -115,22 +115,30 @@ public class Player extends Entity{
                 gp.playSE(1);
                     hasKey++;
                     gp.obj[i]=null;
-                    System.out.println("Key :"+hasKey );
+                    gp.ui.showMessage("YOU PICKED UP A KEY");
                     break;
                     case "Door":
                     if(hasKey>0){
+                        gp.ui.showMessage("YOU Opened the door");
                         gp.playSE(3);
                         gp.obj[i]=null;
                         hasKey--;
+                    }else{
+                        gp.ui.showMessage("Find a key first");
                     }
-                    System.out.println("Key :"+hasKey );
+                    
                     break;
                     case"Boots":
+                    gp.ui.showMessage("YOU PICKED UP THE SUPER BOOOTS");
                     gp.playSE(2);
                     speed+=3;
                     gp.obj[i]=null;
                     break;         
-               
+                    case "Chest":
+                    gp.ui.hasFinished=true;
+                    gp.stopMusic();
+                    gp.playSE(4);
+                    break;
             }
         }
     }
