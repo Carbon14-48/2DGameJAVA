@@ -20,6 +20,7 @@ public class Player extends Entity{
     public final  int screenX;
     public final int screenY;
      public int hasKey=0;
+     int standCount ;
     public Player (GamePanel gp , KeyHandler keyH){
         this.gp=gp;
         this.keyH=keyH;
@@ -100,6 +101,14 @@ public class Player extends Entity{
             }
             spritCounter=0;
         }
+    }else{
+        standCount++;
+
+        if(standCount ==20){
+            spriteNum=1;
+            standCount =0;
+        }
+        
     }
     }
 
@@ -181,6 +190,10 @@ public class Player extends Entity{
         break;
        }
        g2.drawImage(image,screenX, screenY, gp.tileSize,gp.tileSize,null);
+       /* 
+        CHECK COLLIISION 
+       g2.setColor(Color.red);
+       g2.drawRect(screenX+solidArea.x,screenY+solidArea.y, solidArea.width,solidArea.height);*/ 
     }
     
 }

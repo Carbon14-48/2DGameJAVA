@@ -101,7 +101,9 @@ Sound se = new Sound();
             player.update();
         }
         public void paintComponent(Graphics g){
-
+            long drawStart= 0;
+            if(keyH.checkDrawTime==true){drawStart=System.nanoTime();}
+            
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g;
             //tile
@@ -116,11 +118,32 @@ Sound se = new Sound();
             //player
             player.draw(g2);
 
+
+            
+
+
             ui.draw(g2);
              // Draw FPS
             g2.setColor(Color.YELLOW);
             g2.setFont(new Font("Arial", Font.BOLD, 20));
             g2.drawString("FPS: " + currentFPS, 10, 20);
+
+
+
+
+
+            if(keyH.checkDrawTime==true){
+                long drawEnd= System.nanoTime();
+                long passed= drawEnd-drawStart;
+                g2.setColor(Color.white);
+                g2.drawString("Draw time ->> "+passed, 0, 550);
+                System.out.println("Draw time :  "+passed );
+    
+    }
+
+            //Debug Function drawing time 
+            
+
             g2.dispose();
         }
 
