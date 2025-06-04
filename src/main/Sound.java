@@ -20,6 +20,9 @@ private URL soundURL[]= new URL[30];
     soundURL[2]=getClass().getResource("/sounds/powerup.wav");
     soundURL[3]=getClass().getResource("/sounds/unlock.wav");
     soundURL[4]=getClass().getResource("/sounds/fanfare.wav");
+    soundURL[5]=getClass().getResource("/sounds/DawnOfNewTime_TitleScreenSound.wav");
+    soundURL[6]=getClass().getResource("/sounds/teleport.wav");
+    soundURL[7]=getClass().getResource("/sounds/damage.wav");
  }
 
  public void setFile(int i){

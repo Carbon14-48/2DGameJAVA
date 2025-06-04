@@ -77,7 +77,7 @@ Sound se = new Sound();
     public void setupGame(){
         aSetter.setObject();
         aSetter.setNPC();
-        playMusic(0);
+        playMusic(5);
         gameState = titleState;
 
     }

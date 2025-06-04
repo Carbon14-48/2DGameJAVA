@@ -28,8 +28,11 @@ public void checkEvent(){
 }
 
 public void teleport(int gameState){
+
     gp.gameState=gameState;
+    gp.playSE(6);
     gp.ui.currentDialogue="Teleport";
+   
     gp.player.worldX=gp.tileSize*37;
     gp.player.worldY=gp.tileSize*10;
 
@@ -65,6 +68,7 @@ public boolean hit(int eventCol, int eventRow, String reqDirection) {
 public void damagePit(int gameState){
     
     gp.gameState=gameState;
+    gp.playSE(7);
     gp.ui.currentDialogue="You stepped into a mine";
     gp.player.life-=1;
 
