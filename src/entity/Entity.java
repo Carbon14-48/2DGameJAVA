@@ -14,8 +14,11 @@ public  abstract class  Entity {
     public int worldX,worldY ;
     public int speed;
     GamePanel gp;
+    public BufferedImage image ,image2, image3;
+    public String name ;
+    public boolean collision=false;
     public BufferedImage up1, up2, down1, down2, left1, left2 , right1,right2;
-    public String direction;
+    public String direction="down";//setting a defalutmane
     public int spritCounter =0;
     public int spriteNum =1;
     public Rectangle solidArea =new Rectangle(0,0,48,48);

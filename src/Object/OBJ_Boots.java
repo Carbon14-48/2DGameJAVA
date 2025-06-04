@@ -1,20 +1,16 @@
 package Object;
 
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 
+import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_Boots extends SuperObject {
-      public OBJ_Boots(GamePanel gp){
-        this.gp=gp;
+public class OBJ_Boots  extends Entity{
+    
+    public OBJ_Boots(GamePanel gp){
+        super(gp);
         name ="Boots";
-        try {
-            image =ImageIO.read(getClass().getResourceAsStream("/Objects/boots.png"));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        }catch(IOException e){
-            System.out.println(" error getting image ressource");
-        }
+        down1=setup("/Objects/boots");
+        
     }
 }

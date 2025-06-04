@@ -2,7 +2,7 @@ package main;
 
 import javax.swing.JPanel;
 
-import Object.SuperObject;
+
 import entity.Entity;
 import entity.Player;
 import tile.TileManager;
@@ -12,6 +12,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 public class GamePanel extends JPanel implements Runnable{
     final int originalTileSize = 16;
     final int scale = 3;
@@ -21,7 +24,8 @@ public class GamePanel extends JPanel implements Runnable{
      public final int maxScreenRow=12;
      public final int screenWidth = maxScreenCol*tileSize;//768 px
      public final int screenHeight = maxScreenRow*tileSize;//576 px
-
+//sort
+Comparator<Entity> c = (a,b)->{return a.worldY-b.worldY;};
     //fps
     final int FPS=60;
     int frameCount = 0;
@@ -45,8 +49,9 @@ public class GamePanel extends JPanel implements Runnable{
  public UI ui = new UI(this);
  // objects 
 public AssetSetter aSetter = new AssetSetter(this);
-public SuperObject obj[]=new SuperObject[10];
+public Entity obj[]=new Entity[10];
 public Entity npc[] = new Entity[10];
+ArrayList<Entity> entityList=new ArrayList<>();
 //sound 
 Sound music = new Sound();
 Sound se = new Sound();
@@ -127,7 +132,7 @@ if(gameState==playState){
                 }
             }
             if(gameState==pauseState){
-                //nothing
+               
             }
             
         }
@@ -143,22 +148,28 @@ if(gameState==playState){
                    
                     //tile
                     tileM.draw(g2);
-                    
-                    //object 
-                    for(int i =0 ;i<obj.length;i++){
-                        if(obj[i]!=null){
-                            obj[i].draw(g2,this);
-                        }
+                    // add all entities to the list
+                   entityList.add(player);
+                   for(int i=0;i<npc.length;i++){
+                    if (npc[i]!=null)
+                    entityList.add(npc[i]);
+                   }
+                  
+                   for(int i=0;i<obj.length;i++){
+                    if(obj[i]!=null)
+                    entityList.add(obj[i]);
+                   }
+                   //sort
+                   Collections.sort(entityList,c);
+                   for(var e : entityList){
+                    if(e!=null){
+                        e.draw(g2);
                     }
-                    //npc
-                    for(int i =0;i<npc.length;i++){
-                        if(npc[i]!=null){
-                            npc[i].draw(g2);
-                        }
-                    }
-                    //player
-                    player.draw(g2);
-        
+                   }
+
+                   for(int i =0;i<entityList.size();i++){
+                    entityList.remove(i);
+                   }
                     ui.draw(g2);
                      // Draw FPS
                     g2.setColor(Color.YELLOW);

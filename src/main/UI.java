@@ -5,7 +5,8 @@ import java.io.InputStream;
 
 
 import Object.OBJ_Heart;
-import Object.SuperObject;
+
+import entity.Entity;
 
 public class UI {
     GamePanel gp;
@@ -30,7 +31,7 @@ public class UI {
             System.out.println("Error getting the font ");
             }
 
-            SuperObject heart= new OBJ_Heart(gp);
+            Entity heart= new OBJ_Heart(gp);
             heart_full=heart.image;
             heart_half=heart.image2;
             heart_blank=heart.image3;

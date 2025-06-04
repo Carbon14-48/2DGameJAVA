@@ -72,9 +72,9 @@ public class KeyHandler implements KeyListener{
             }
             if(code==KeyEvent.VK_P){
     
-                if(gp.gameState==gp.playState){
-                    gp.gameState=gp.pauseState;
-                }
+                gp.gameState=gp.pauseState;
+                gp.stopMusic(); // Stop game music
+                gp.playMusic(4);
     
             }
             if(code==KeyEvent.VK_ENTER)  {
@@ -84,9 +84,11 @@ public class KeyHandler implements KeyListener{
             if(code==KeyEvent.VK_P){
     
                 
-                    gp.gameState=gp.playState;
-                }
-        }
+                gp.gameState=gp.playState;
+                gp.stopMusic(); // Stop pause music
+                gp.playMusic(0);
+                
+        }}
         if(gp.gameState==gp.dialogueState){
        if(code==KeyEvent.VK_ENTER)  {
         gp.gameState=gp.playState;
