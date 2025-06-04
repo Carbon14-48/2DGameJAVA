@@ -18,6 +18,34 @@ public class KeyHandler implements KeyListener{
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
             //play state
+            if(gp.gameState == gp.titleState) {
+                if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+                    gp.ui.commandNum--; // Decrease commandNum
+                    if(gp.ui.commandNum < 0) {
+                        gp.ui.commandNum = 2; // Wrap to last option (QUIT)
+                    }
+                }
+                if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+                    gp.ui.commandNum++; // Increase commandNum
+                    if(gp.ui.commandNum > 2) {
+                        gp.ui.commandNum = 0; // Wrap to first option (NEW GAME)
+                    }
+                }
+                if(code == KeyEvent.VK_ENTER) {
+                    if(gp.ui.commandNum == 0) { // NEW GAME
+                        gp.gameState = gp.playState;
+                    }
+                    if(gp.ui.commandNum == 1) { // LOAD GAME
+                        System.out.println("Load Game selected");
+                    }
+                    if(gp.ui.commandNum == 2) { // QUIT
+                        System.exit(0);
+                    }
+                }
+            }
+
+
+
         if(gp.gameState==gp.playState){
 
             if(code==KeyEvent.VK_W){
@@ -49,9 +77,7 @@ public class KeyHandler implements KeyListener{
             if(code==KeyEvent.VK_ENTER)  {
                 enterPressed=true;
                } 
-        }
-        //pause stae
-        if(gp.gameState==gp.pauseState){
+        } else if(gp.gameState==gp.pauseState){ //pause state
             if(code==KeyEvent.VK_P){
     
                 

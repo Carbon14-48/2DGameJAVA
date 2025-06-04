@@ -1,35 +1,46 @@
 package main;
 import java.awt.*;
+import java.io.InputStream;
 
 public class UI {
     GamePanel gp;
-    Font arial_40, arial_80B ;
+    Font maruMonica;
    Graphics2D g2;
     public boolean messageOn ;
     public String message ="";
     int messageCounter =0;
     public boolean hasFinished=false;
     public String currentDialogue;
-   
+    TitleScreen titleScreen;
+    public  int commandNum =0;
     public UI(GamePanel gp){
-        this.gp=gp;
-        arial_40=new Font("Arial", Font.PLAIN, 40);
     
-        arial_80B=new Font("Arial", Font.BOLD, 80);
+        this.gp=gp;
+        titleScreen= new TitleScreen(gp);
+        InputStream is = getClass().getResourceAsStream("/fonts/x12y16pxMaruMonica.ttf");
+        try{maruMonica=Font.createFont(Font.TRUETYPE_FONT, is);
+        
+        }catch(Exception E){
+            System.out.println("Error getting the font ");
+            }
+        
     }
     public void showMessage(String text ){
         message=text;
         messageOn=true;
 
     }
-
-
     public void draw(Graphics2D  g2){
         
       this.g2=g2;
 
-      g2.setFont(arial_40);
+      g2.setFont(maruMonica);
       g2.setColor(Color.BLUE);
+      //titleState
+
+      if(gp.gameState==gp.titleState){
+        titleScreen.drawTitleScreen(g2,commandNum);
+      }
       ///play state
       if(gp.gameState==gp.playState){
 
@@ -45,6 +56,8 @@ public class UI {
 
     }
 
+
+
     public void drawDialogueScreen(){
         //create dialgue window
         int x,y,width,height;
@@ -54,10 +67,13 @@ public class UI {
         height=gp.tileSize*5;
 
     drawSubWindows(x, y, width, height);
-    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30));
+    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 35));
     x+=gp.tileSize;
     y+=gp.tileSize;
-    g2.drawString(currentDialogue, x, y);
+    for(var line : currentDialogue.split("\n")){
+    g2.drawString(line, x, y);
+    y+=40;
+}
 
     }
 

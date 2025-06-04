@@ -54,14 +54,17 @@ Sound se = new Sound();
 
 ///gAME STATE 
  public int gameState;
+ public final int titleState=0;
  public final int playState =1;
  public final int pauseState =2;
  public final int dialogueState=3;
+ 
 
 
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
@@ -73,7 +76,7 @@ Sound se = new Sound();
         aSetter.setObject();
         aSetter.setNPC();
         playMusic(0);
-        gameState = playState;
+        gameState = titleState;
 
     }
 
@@ -113,7 +116,7 @@ Sound se = new Sound();
         }
         public void update (){
 
-            if(gameState==playState){
+if(gameState==playState){
                 player.update();
                 for(int i=0;i<npc.length;i++){
                     if(npc[i]!=null){
@@ -128,52 +131,48 @@ Sound se = new Sound();
         }
         public void paintComponent(Graphics g){
             long drawStart= 0;
-            if(keyH.checkDrawTime==true){drawStart=System.nanoTime();}
-            
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g;
-            //tile
-            tileM.draw(g2);
-
-            //object 
-            for(int i =0 ;i<obj.length;i++){
-                if(obj[i]!=null){
-                    obj[i].draw(g2,this);
-                }
+            if(keyH.checkDrawTime==true){drawStart=System.nanoTime();}
+                //title Screen
+                if(gameState==titleState){
+                    ui.draw(g2);
+                }else{
+                   
+                    //tile
+                    tileM.draw(g2);
+                    
+                    //object 
+                    for(int i =0 ;i<obj.length;i++){
+                        if(obj[i]!=null){
+                            obj[i].draw(g2,this);
+                        }
+                    }
+                    //npc
+                    for(int i =0;i<npc.length;i++){
+                        if(npc[i]!=null){
+                            npc[i].draw(g2);
+                        }
+                    }
+                    //player
+                    player.draw(g2);
+        
+                    ui.draw(g2);
+                     // Draw FPS
+                    g2.setColor(Color.YELLOW);
+                    g2.setFont(new Font("Arial", Font.BOLD, 20));
+                    g2.drawString("FPS: " + currentFPS, 10, 20);
+                    if(keyH.checkDrawTime==true){
+                        long drawEnd= System.nanoTime();
+                        long passed= drawEnd-drawStart;
+                        g2.setColor(Color.black);
+                        g2.drawString("Draw time ->> "+passed, 0, 550);
+                        System.out.println("Draw time :  "+passed );
             }
-            //npc
-            for(int i =0;i<npc.length;i++){
-                if(npc[i]!=null){
-                    npc[i].draw(g2);
+                    //Debug Function drawing time 
+                    g2.dispose();
                 }
-            }
-
-            //player
-            player.draw(g2);
-
-            ui.draw(g2);
-             // Draw FPS
-            g2.setColor(Color.YELLOW);
-            g2.setFont(new Font("Arial", Font.BOLD, 20));
-            g2.drawString("FPS: " + currentFPS, 10, 20);
-
-
-
-
-
-            if(keyH.checkDrawTime==true){
-                long drawEnd= System.nanoTime();
-                long passed= drawEnd-drawStart;
-                g2.setColor(Color.white);
-                g2.drawString("Draw time ->> "+passed, 0, 550);
-                System.out.println("Draw time :  "+passed );
-    
-    }
-
-            //Debug Function drawing time 
             
-
-            g2.dispose();
         }
 
 public void playMusic(int i){

@@ -51,30 +51,12 @@ int i=random.nextInt(100)+1;
 public void setDialogue(){
 dialogues[0]="Hello Traveler .....";
 dialogues[1]="what are u searching for ? ....";
-dialogues[2]="Do u have what it takes to find the treasure ?";
-dialogues[3]="I used to be a great wizard but i'm too old right now ";
+dialogues[2]="Do u have what it takes \n to find the treasure ?";
+dialogues[3]="I used to be a great wizard ... \n but i'm too old right now ";
 dialogues[4]="GOOD LUCK My nigga";
 
 }
 public void speak(){
-    if(dialogues[dialogueIndex]==null) dialogueIndex=0;
-    gp.ui.currentDialogue=dialogues[dialogueIndex];
-    dialogueIndex++;
-    switch (gp.player.direction) {
-        case "up":
-            direction="down";
-            break;
-            case "down":
-            direction="up";
-            break;
-            case "right":
-            direction="left";
-            break;
-            case "left":
-            direction="right";
-            break;
-        
-    }
+ super.speak();   
 }
-   
 }
