@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     //tile manager
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
       public   Player player = new Player(this, keyH);
     Thread gameThread;
  public  CollisionChecker cChecker=new CollisionChecker(this);
@@ -56,6 +56,7 @@ Sound se = new Sound();
  public int gameState;
  public final int playState =1;
  public final int pauseState =2;
+ public final int dialogueState=3;
 
 
 
