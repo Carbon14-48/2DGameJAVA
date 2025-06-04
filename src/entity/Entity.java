@@ -21,12 +21,15 @@ public  abstract class  Entity {
     public String direction="down";//setting a defalutmane
     public int spritCounter =0;
     public int spriteNum =1;
+    public boolean invincible=false;
+    public int invincibleCounter=0;
     public Rectangle solidArea =new Rectangle(0,0,48,48);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn=false;
     public int actionLocManager;
     public String dialogues[] =new String[20];
     int dialogueIndex=0;
+    public int type;//0 =player , 1=npc , 2=monster
 
     //character status
     public int maxLife;
@@ -73,10 +76,21 @@ public  abstract class  Entity {
 public  void setAction(){};
 public void update(){
 setAction();
+
 collisionOn=false;
 gp.cChecker.checkTile(this);
 gp.cChecker.checkObject(this, false);
-gp.cChecker.checkPlayer(this);
+gp.cChecker.checkEntity(this, gp.npc);
+gp.cChecker.checkEntity(this, gp.monster);
+ boolean contactPlayer=gp.cChecker.checkPlayer(this);
+ if(this.type==2 && contactPlayer==true){
+    if(gp.player.invincible==false){
+        gp.player.life-=1;
+        gp.playSE(7);
+        gp.player.invincible=true;
+    }
+ }
+
 if(collisionOn==false){
     switch (direction) {
         case "up":worldY-=speed; break;

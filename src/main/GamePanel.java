@@ -51,7 +51,9 @@ Comparator<Entity> c = (a,b)->{return a.worldY-b.worldY;};
 public AssetSetter aSetter = new AssetSetter(this);
 public Entity obj[]=new Entity[10];
 public Entity npc[] = new Entity[10];
+public Entity monster[] =new Entity[20];
 ArrayList<Entity> entityList=new ArrayList<>();
+
 //sound 
 Sound music = new Sound();
 Sound se = new Sound();
@@ -82,6 +84,7 @@ Sound se = new Sound();
     public void setupGame(){
         aSetter.setObject();
         aSetter.setNPC();
+        aSetter.setMonster();
         playMusic(5);
         gameState = titleState;
 
@@ -123,11 +126,17 @@ Sound se = new Sound();
         }
         public void update (){
 
-if(gameState==playState){
+          if(gameState==playState){
                 player.update();
                 for(int i=0;i<npc.length;i++){
                     if(npc[i]!=null){
                         npc[i].update();
+                    }
+                }
+
+                for(int i=0;i<monster.length;i++){
+                    if(monster[i]!=null){
+                        monster[i].update();
                     }
                 }
             }
@@ -159,8 +168,13 @@ if(gameState==playState){
                     if(obj[i]!=null)
                     entityList.add(obj[i]);
                    }
+                   for(int i=0;i<monster.length;i++){
+                    if(monster[i]!=null)
+                    entityList.add(monster[i]);
+                   }
                    //sort
                    Collections.sort(entityList,c);
+
                    for(var e : entityList){
                     if(e!=null){
                         e.draw(g2);

@@ -3,7 +3,7 @@ package entity;
 
 import main.KeyHandler;
 
-
+import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 
 import java.awt.Rectangle;
@@ -64,6 +64,7 @@ public class Player extends Entity{
     }
   
     public void update(){
+        
         if ( keyH.downPressed==true || keyH.rightPressed==true || keyH.leftPressed==true||keyH.upPressed==true) {  
             int playerCol = worldX / gp.tileSize;
         int playerRow = worldY / gp.tileSize;
@@ -93,6 +94,12 @@ public class Player extends Entity{
          //npc 
          int npcIndex=gp.cChecker.checkEntity(this, gp.npc);
          interactNPC(npcIndex);
+
+
+
+         ///check monster collision
+         int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+         contactMonster(monsterIndex);
          
         //event checkng
         gp.eventHandler.checkEvent();
@@ -125,6 +132,15 @@ public class Player extends Entity{
         }
         
     }
+    // this needs to be outside of key if statment
+    if(invincible==true){
+
+        invincibleCounter++;
+        if(invincibleCounter>60){
+            invincible=false;
+            invincibleCounter=0;
+        }
+    }
     }
 
 public void interactNPC(int i){
@@ -137,7 +153,16 @@ public void interactNPC(int i){
    
 }
 
+public void contactMonster(int i ){
 
+    if(i!=999){
+        if(invincible==false){
+        life-=1;
+        gp.playSE(7);
+        invincible=true;
+    }
+    }
+}
 
     public void pickUpObject(int i){
         if(i!=999){
@@ -182,7 +207,13 @@ public void interactNPC(int i){
         }
         break;
        }
+       if(invincible==true){
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+       }
        g2.drawImage(image,screenX, screenY, gp.tileSize,gp.tileSize,null);
+       g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+
        /* 
         CHECK COLLIISION 
        g2.setColor(Color.red);
