@@ -64,7 +64,10 @@ public class Player extends Entity{
     }
   
     public void update(){
-        if ( keyH.downPressed==true || keyH.rightPressed==true || keyH.leftPressed==true||keyH.upPressed==true) {        
+        if ( keyH.downPressed==true || keyH.rightPressed==true || keyH.leftPressed==true||keyH.upPressed==true) {  
+            int playerCol = worldX / gp.tileSize;
+        int playerRow = worldY / gp.tileSize;
+        System.out.println("Player at tile: Col=" + playerCol + ", Row=" + playerRow);      
         if(keyH.upPressed==true){
             direction="up";
             
@@ -86,8 +89,15 @@ public class Player extends Entity{
 
          int objIndex =gp.cChecker.checkObject(this, true);
          pickUpObject(objIndex);
+
+         //npc 
          int npcIndex=gp.cChecker.checkEntity(this, gp.npc);
          interactNPC(npcIndex);
+         
+        //event checkng
+        gp.eventHandler.checkEvent();
+
+        gp.keyH.enterPressed=false;
         if(collisionOn==false){
             switch (direction) {
                 case "up":worldY-=speed; break;
@@ -124,7 +134,7 @@ public void interactNPC(int i){
                 gp.npc[i].speak();
         }
     }
-    gp.keyH.enterPressed=false;
+   
 }
 
 
