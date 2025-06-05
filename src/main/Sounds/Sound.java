@@ -1,4 +1,4 @@
-package main;
+package main.Sounds;
 
 
 import java.net.URL;
@@ -24,21 +24,46 @@ private URL soundURL[]= new URL[30];
     soundURL[6]=getClass().getResource("/sounds/teleport.wav");
     soundURL[7]=getClass().getResource("/sounds/damage.wav");
     soundURL[8]= getClass().getResource("/sounds/Healing.wav");
+    
  }
 
  public void setFile(int i){
 
-try {
-    AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
-    clip=AudioSystem.getClip();
-    clip.open(ais);
-} catch (Exception e) {
-    System.out.println("error openning music ressources");
-}
-
+   try {
+      
+      if(soundURL[i] == null) {
+          System.out.println("Sound file at index " + i + " not found!");
+          return;
+      }
+      if(clip != null && clip.isOpen()) {
+          clip.close();
+      }
+      AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
+      clip = AudioSystem.getClip();
+      clip.open(ais);
+      
+  } catch (Exception e) {
+      System.out.println("Error opening sound file at index " + i + ": " + e.getMessage());
+      e.printStackTrace();
+      clip = null;
+  }
 
  }
 
+ public void playSE(int i) {
+   try {
+       if (soundURL[i] == null) {
+           System.out.println("Sound file at index " + i + " not found!");
+           return;
+       }
+       AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
+       Clip tempClip = AudioSystem.getClip();
+       tempClip.open(ais);
+       tempClip.start();
+   } catch (Exception e) {
+       System.out.println("Error playing sound at index " + i + ": " + e.getMessage());
+   }
+}
 
  public void play(){
     clip.start();

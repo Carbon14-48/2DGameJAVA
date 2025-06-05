@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 
 import entity.Entity;
 import entity.Player;
+import main.Sounds.Sound;
+import main.Sounds.SoundPool;
 import tile.TileManager;
 
 import java.awt.Color;
@@ -56,9 +58,11 @@ ArrayList<Entity> entityList=new ArrayList<>();
 
 //sound 
 Sound music = new Sound();
-Sound se = new Sound();
-
-
+public Sound se = new Sound();
+//using sound pool for ressource eaterrs
+public SoundPool swingPool;
+public SoundPool hitPool;
+;
 
 
 ///gAME STATE 
@@ -85,6 +89,8 @@ Sound se = new Sound();
         aSetter.setObject();
         aSetter.setNPC();
         aSetter.setMonster();
+        swingPool = new SoundPool(getClass().getResource("/sounds/swinging.wav"), 2); // pool size 10
+        hitPool = new SoundPool(getClass().getResource("/sounds/hitMonster.wav"), 2);
         playMusic(5);
         gameState = titleState;
 
@@ -136,7 +142,13 @@ Sound se = new Sound();
 
                 for(int i=0;i<monster.length;i++){
                     if(monster[i]!=null){
-                        monster[i].update();
+                        if(monster[i].alive==true && monster[i].dying==false){
+                            monster[i].update();
+                        }
+                        if(monster[i].alive==false){
+                            monster[i]=null;
+                        }
+                        
                     }
                 }
             }
@@ -212,8 +224,9 @@ public void stopMusic(){
 }
 
 public void playSE(int i){
-    se.setFile(i);
-    se.play();
+
+    se.playSE(i);
+
 }
 
 

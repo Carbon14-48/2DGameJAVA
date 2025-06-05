@@ -17,7 +17,7 @@ public class Player extends Entity{
     KeyHandler keyH;
     public final  int screenX;
     public final int screenY;
-     
+
      int standCount ;
     public Player (GamePanel gp , KeyHandler keyH){
         super(gp);
@@ -217,12 +217,18 @@ public void interactNPC(int i){
             gp.npc[i].speak();
     
         }else {
+            
+            
                 attacking=true;
+                //gp.swingPool.play();
+            }
+               
+            }
         
     }
-    }
     
-    }
+    
+    
 
 
 public void contactMonster(int i ){
@@ -239,10 +245,11 @@ public void damageMonster(int i){
     if(i!=999){
         
     if(gp.monster[i].invincible==false){
+       // gp.hitPool.play();
         gp.monster[i].life-=1;
         gp.monster[i].invincible=true;
         if(gp.monster[i].life<=0){
-            gp.monster[i]=null;
+            gp.monster[i].dying = true;
         }
     }
     }

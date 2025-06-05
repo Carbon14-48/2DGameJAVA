@@ -24,6 +24,9 @@ public  abstract class  Entity {
     public int spritCounter =0;
     public int spriteNum =1;
     public boolean invincible=false;
+    public boolean alive=true;
+    public boolean dying = false;
+     public int dyingcounter=0;
     public int invincibleCounter=0;
     public Rectangle solidArea =new Rectangle(0,0,48,48);
     public Rectangle attackArea= new Rectangle(0,0,0,0);
@@ -158,9 +161,33 @@ if(invincible==true){
 if(invincible==true){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
         }
+        if(dying==true){
+            dyingAnimation(g2);
+        }
             g2.drawImage(image, screenX,screenY, gp.tileSize, gp.tileSize, null);
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
+    }
+    public void dyingAnimation(Graphics2D g2){
+        dyingcounter++;
+        int i=15;
+        if(dyingcounter<=i)changeAlpha(g2, 0f);
+        if(dyingcounter>i && dyingcounter <=i*2)changeAlpha(g2, 1f);
+        if(dyingcounter>i*2 && dyingcounter <=i*3)changeAlpha(g2, 0f);
+        if(dyingcounter>i*3 && dyingcounter <=i*4)changeAlpha(g2, 1f);
+        if(dyingcounter>i*4&& dyingcounter <=i*5)changeAlpha(g2, 0f);
+        if(dyingcounter>i*5 && dyingcounter <=i*6)changeAlpha(g2, 1f);
+        if(dyingcounter>i*6 && dyingcounter <=i*7)changeAlpha(g2, 0f);
+        if(dyingcounter>i*7 && dyingcounter <=i*8)changeAlpha(g2, 1f);
+        if(dyingcounter>i){
+            dying=false;
+            alive=false;
+        }
+
+        
+    }
+    public  void changeAlpha(Graphics2D g2 ,  float alphaValue){
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alphaValue));
     }
 
 }
