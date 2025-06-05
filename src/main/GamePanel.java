@@ -181,9 +181,7 @@ Sound se = new Sound();
                     }
                    }
 
-                   for(int i =0;i<entityList.size();i++){
-                    entityList.remove(i);
-                   }
+                  entityList.clear();
                     ui.draw(g2);
                      // Draw FPS
                     g2.setColor(Color.YELLOW);

@@ -77,6 +77,7 @@ public void damagePit(int gameState){
 public void healingPool(int gameState){
     System.out.println("healing");
     if(gp.keyH.enterPressed==true){
+        gp.playSE(8);
         gp.gameState=gameState;
         gp.ui.currentDialogue="Drinking healing water \n Life has been recovered ";
         gp.player.life=gp.player.maxLife;
