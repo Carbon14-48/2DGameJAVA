@@ -19,9 +19,9 @@ EventHandler ( GamePanel gp){
 }
 
 public void checkEvent(){
-    if (hit( 28, 14, "right")==true) damagePit(gp.dialogueState); 
-    if(hit(23,6,"down")==true) healingPool(gp.dialogueState);
-    if(hit(7,40,"down")==true) teleport(gp.dialogueState);
+    if (hit( 28, 14, "right")==true) damagePit(GamePanel.dialogueState); 
+    if(hit(23,6,"down")==true) healingPool(GamePanel.dialogueState);
+    if(hit(7,40,"down")==true) teleport(GamePanel.dialogueState);
 
 
     
@@ -77,10 +77,12 @@ public void damagePit(int gameState){
 public void healingPool(int gameState){
     System.out.println("healing");
     if(gp.keyH.enterPressed==true){
-        gp.playSE(8);
-        gp.gameState=gameState;
+        
+        gp.player.attackCanceled=true;
         gp.ui.currentDialogue="Drinking healing water \n Life has been recovered ";
+        gp.gameState=gameState;
         gp.player.life=gp.player.maxLife;
+        gp.playSE(8);
     }
     
 }

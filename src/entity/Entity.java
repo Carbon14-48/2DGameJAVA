@@ -14,10 +14,10 @@ import main.UtilityTool;
 
 public  abstract class  Entity {
     public int worldX,worldY ;
-    public int speed;
+    
      public GamePanel gp;
     public BufferedImage image ,image2, image3;
-    public String name ;
+   
     public boolean collision=false;
     public BufferedImage up1, up2, down1, down2, left1, left2 , right1,right2;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2 , attackRight1,attackRight2;
@@ -36,14 +36,30 @@ public  abstract class  Entity {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn=false;
     public int actionLocManager;
+    boolean attacking=false;
     public String dialogues[] =new String[20];
     int dialogueIndex=0;
     public int type;//0 =player , 1=npc , 2=monster
 
     //character status
+    public String name ;
+    public int speed;
     public int maxLife;
     public int life;
-    boolean attacking=false;
+    public int  level;
+    public int strength;
+    public int dexterity;
+    public int attack;
+    public int defense;
+    public int exp;
+    public int nexLevelExp;
+    public int coin;
+    public Entity currentWeapon;
+    public Entity currentShield;
+    
+    // item attributes
+    public int attackValue;
+    public int defenseValue;
 
     public Entity(GamePanel gp){
         this.gp=gp;

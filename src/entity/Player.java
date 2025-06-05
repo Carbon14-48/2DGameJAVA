@@ -9,7 +9,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-
+import Object.OBJ_Shield_Wood;
+import Object.OBJ_Sword_Normal;
 import main.GamePanel;
 
 public class Player extends Entity{
@@ -17,6 +18,7 @@ public class Player extends Entity{
     KeyHandler keyH;
     public final  int screenX;
     public final int screenY;
+    public boolean attackCanceled=false;
 
      int standCount ;
     public Player (GamePanel gp , KeyHandler keyH){
@@ -53,9 +55,24 @@ public class Player extends Entity{
 
         //player status 
         //1 life = half heart(1/2 heart) so 3 hearts= 6 life
-
+//players satus
+        level=1;
         maxLife=6;
         life=maxLife;
+        strength=1;
+        dexterity=1;
+        exp=0;
+        coin=0;
+        currentWeapon=new OBJ_Sword_Normal(gp);
+        currentShield=new OBJ_Shield_Wood(gp);
+        attack=getAttack();
+        defense=getDefense();
+    }
+    public int getAttack(){
+        return attack=strength*currentWeapon.attackValue;
+    }
+    public int getDefense(){
+        return defense=dexterity*currentShield.defenseValue;
     }
     public void getPlayerImage(){
         up1=setup("/player/boy_up_1",gp.tileSize,gp.tileSize);
@@ -133,6 +150,12 @@ public class Player extends Entity{
             }
 
         }
+        if(keyH.enterPressed==true && attackCanceled==false){
+            gp.swingPool.play();
+            attacking=true;
+            spritCounter=0;
+        }
+        attackCanceled=false;
         gp.keyH.enterPressed=false;
         spritCounter++;
         if(spritCounter>15){
@@ -213,19 +236,13 @@ public void attacking(){
 public void interactNPC(int i){
     if(gp.keyH.enterPressed==true){
         if(i!=999){
-            gp.gameState=gp.dialogueState;
+            attackCanceled=true;
+            gp.gameState=GamePanel.dialogueState;
             gp.npc[i].speak();
     
-        }else {
-            
-            
-                attacking=true;
-                gp.swingPool.play();//turn Off FOR BETTER PERFORMANCE
-            }
-               
-            }
-        
+        }
     }
+}
     
     
     
