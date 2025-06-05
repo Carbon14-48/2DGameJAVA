@@ -89,8 +89,8 @@ public SoundPool hitPool;
         aSetter.setObject();
         aSetter.setNPC();
         aSetter.setMonster();
-        swingPool = new SoundPool(getClass().getResource("/sounds/swinging.wav"), 2); // pool size 10
-        hitPool = new SoundPool(getClass().getResource("/sounds/hitMonster.wav"), 2);
+        swingPool = new SoundPool(getClass().getResource("/sounds/swinging.wav"), 1); // pool size 10
+        hitPool = new SoundPool(getClass().getResource("/sounds/hitMonster.wav"), 1);
         playMusic(5);
         gameState = titleState;
 

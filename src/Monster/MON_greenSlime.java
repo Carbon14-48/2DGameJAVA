@@ -35,7 +35,12 @@ public class MON_greenSlime extends Entity {
         right1=setup("/Monster/greenslime_down_1",gp.tileSize,gp.tileSize);
         right2=setup("/Monster/greenslime_down_2",gp.tileSize,gp.tileSize);
     }
-    
+    @Override
+    public void damageReaction() {
+        
+        actionLocManager=0;
+        direction=gp.player.direction;
+    }
     public void setAction(){
         Random random = new Random();
 int i=random.nextInt(100)+1;

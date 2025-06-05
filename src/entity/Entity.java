@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -26,8 +27,10 @@ public  abstract class  Entity {
     public boolean invincible=false;
     public boolean alive=true;
     public boolean dying = false;
+    public boolean hpBarOn=false;
      public int dyingcounter=0;
     public int invincibleCounter=0;
+    int hpBarCounter = 0;
     public Rectangle solidArea =new Rectangle(0,0,48,48);
     public Rectangle attackArea= new Rectangle(0,0,0,0);
     public int solidAreaDefaultX, solidAreaDefaultY;
@@ -80,6 +83,7 @@ public  abstract class  Entity {
     }
     }
 public  void setAction(){};
+public void damageReaction(){}
 public void update(){
 setAction();
 
@@ -127,6 +131,7 @@ if(invincible==true){
     }
 }
 };
+
    public void draw(Graphics2D g2){
         BufferedImage image = null;
         int screenX =worldX -gp.player.worldX+gp.player.screenX;
@@ -158,15 +163,37 @@ if(invincible==true){
              if(spriteNum==2)image=right2;
              break;
             }
+            //monster health bar 
+        if(type==2 && hpBarOn ==true){//check if monster 
+            double oneScale = (double) gp.tileSize/maxLife;
+            double hpBarValue = oneScale*life;
+            g2.setColor(new Color(255,255,255));
+            g2.fillRect(screenX-1, screenY-14,gp.tileSize+2, 12);
+
+            g2.setColor(new Color(255, 0,30));
+            g2.fillRect(screenX, screenY-13, (int)hpBarValue, 10);
+            hpBarCounter++;
+            if(hpBarCounter>600){
+                hpBarCounter=0;
+                hpBarOn=false;
+            }
+        }
+            
+
+
+
+
 if(invincible==true){
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+    hpBarOn=true;
+    hpBarCounter=0;
+            changeAlpha(g2, 0.4f);
+
         }
         if(dying==true){
             dyingAnimation(g2);
         }
             g2.drawImage(image, screenX,screenY, gp.tileSize, gp.tileSize, null);
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-        }
+            changeAlpha(g2, 1f);        }
     }
     public void dyingAnimation(Graphics2D g2){
         dyingcounter++;
