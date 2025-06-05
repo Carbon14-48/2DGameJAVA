@@ -85,6 +85,9 @@ private void handlePlayState(int code) {
     if(code == KeyEvent.VK_ENTER)  {
         enterPressed = true;
     }
+    if(code==KeyEvent.VK_R){
+        gp.tileM.loadMap("/maps/worldV2.txt");
+    }
 }
 
 private void handlePauseState(int code) {

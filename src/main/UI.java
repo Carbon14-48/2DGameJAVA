@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 
+import java.util.ArrayList;
 
 import Object.OBJ_Heart;
 
@@ -14,8 +15,8 @@ public class UI {
    Graphics2D g2;
    BufferedImage heart_full , heart_half, heart_blank;
     public boolean messageOn ;
-    public String message ="";
-    int messageCounter =0;
+    ArrayList<String> message = new ArrayList<>();
+    ArrayList<Integer> messageCounter = new ArrayList<>();
     public boolean hasFinished=false;
     public String currentDialogue;
     TitleScreen titleScreen;
@@ -37,11 +38,6 @@ public class UI {
             heart_blank=heart.image3;
         
     }
-    public void showMessage(String text ){
-        message=text;
-        messageOn=true;
-
-    }
     public void draw(Graphics2D  g2){
         
       this.g2=g2;
@@ -56,6 +52,7 @@ public class UI {
       ///play state
       if(gp.gameState==GamePanel.playState){
         drawPLayerLife();
+        drawMessage();
       }
       //pause state 
       if(gp.gameState==GamePanel.pauseState){
@@ -71,6 +68,10 @@ public class UI {
         drawCharacterScreen();
       }
 
+    }
+    public void addMessage(String txt){
+      message.add(txt);
+      messageCounter.add(0);
     }
 
     private void  drawPLayerLife(){
@@ -115,7 +116,29 @@ public class UI {
     g2.drawString(line, x, y);
     y+=40;
 }
+  
 
+    }
+    public void drawMessage(){
+      int messageX=gp.tileSize;
+      int messageY=gp.tileSize*4;
+      g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32f));
+      for(int i=0;i<message.size();i++){
+        if(message.get(i)!=null){
+          g2.setColor(Color.black);
+          g2.drawString(message.get(i), messageX+2, messageY);
+          g2.setColor(Color.white);
+          g2.drawString(message.get(i), messageX, messageY);
+          int counter=messageCounter.get(i)+1;//message couner ++
+          messageCounter.set(i, counter);
+          messageY+=50;
+          if(messageCounter.get(i)>180){
+            message.remove(i);
+            messageCounter.remove(i);
+          }
+        }
+
+      }
     }
     public void drawCharacterScreen(){
       // create a frame 

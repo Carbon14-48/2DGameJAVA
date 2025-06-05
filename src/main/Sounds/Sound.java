@@ -24,6 +24,7 @@ private URL soundURL[]= new URL[30];
     soundURL[6]=getClass().getResource("/sounds/teleport.wav");
     soundURL[7]=getClass().getResource("/sounds/damage.wav");
     soundURL[8]= getClass().getResource("/sounds/Healing.wav");
+    soundURL[9]= getClass().getResource("/sounds/fanfare.wav");
     
  }
 

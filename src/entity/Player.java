@@ -253,6 +253,9 @@ public void contactMonster(int i ){
     if(i!=999){
         if(invincible==false){
         life-=1;
+        int damage=gp.monster[i].attack-defense;
+        if(damage<0) damage=0;
+        life-=damage;
         gp.playSE(7);
         invincible=true;
     }
@@ -263,17 +266,38 @@ public void damageMonster(int i){
         
     if(gp.monster[i].invincible==false){
         gp.hitPool.play();
-        gp.monster[i].life-=1;
+        int damage=attack-gp.monster[i].defense;
+        if(damage<0) damage=0;
+        gp.ui.addMessage(damage+" damage !");
+        gp.monster[i].life-=damage;
+        
         gp.monster[i].invincible=true;
         gp.monster[i].damageReaction();
         if(gp.monster[i].life<=0){
             gp.monster[i].dying = true;
+            gp.ui.addMessage("Killed The "+gp.monster[i].name+"!");
+            gp.ui.addMessage("Exp + "+gp.monster[i].exp+"!");
+            exp+=gp.monster[i].exp;
+            checkLevelUp();
         }
     }
     }
 
 }
-
+public void checkLevelUp(){
+    if(exp>=nexLevelExp){
+        level++;
+        nexLevelExp=nexLevelExp*2;
+        maxLife+=2;
+        strength++;
+        dexterity++;
+        attack=getAttack();
+        defense=getDefense();
+        gp.playSE(9);
+        gp.gameState=GamePanel.dialogueState;
+        gp.ui.currentDialogue=" You ARE LEVEL "+level+" NOW \n"+" YOU ARE NOW STRONGER";
+    }
+}
     public void pickUpObject(int i){
         if(i!=999){
 

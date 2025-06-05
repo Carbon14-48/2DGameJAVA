@@ -52,7 +52,7 @@ public  abstract class  Entity {
     public int attack;
     public int defense;
     public int exp;
-    public int nexLevelExp;
+    public int nexLevelExp=2;
     public int coin;
     public Entity currentWeapon;
     public Entity currentShield;
@@ -113,6 +113,9 @@ gp.cChecker.checkEntity(this, gp.monster);
     if(gp.player.invincible==false){
         gp.player.life-=1;
         gp.playSE(7);
+        int damage=attack-gp.player.defense;
+        if(damage<0) damage=0;
+        gp.player.life-=damage;
         gp.player.invincible=true;
     }
  }
