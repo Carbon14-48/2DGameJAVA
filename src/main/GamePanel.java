@@ -2,11 +2,10 @@ package main;
 
 import javax.swing.JPanel;
 
-
+import Sounds.Sound;
+import Sounds.SoundPool;
 import entity.Entity;
 import entity.Player;
-import main.Sounds.Sound;
-import main.Sounds.SoundPool;
 import tile.TileManager;
 
 import java.awt.Color;

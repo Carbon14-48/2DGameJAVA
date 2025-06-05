@@ -3,11 +3,13 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import Sounds.SoundPool;
+
 public class KeyHandler implements KeyListener{
     public boolean upPressed , downPressed, leftPressed , rightPressed,enterPressed;
     boolean checkDrawTime;
     GamePanel gp;
-    
+    public SoundPool inventoryPool = new SoundPool(getClass().getResource("/sounds/cursor.wav"), 4);
 
 
     public KeyHandler(GamePanel gp){
@@ -101,7 +103,35 @@ private void handlePauseState(int code) {
 private void handleCharacterState(int code) {
     if(code == KeyEvent.VK_C) {
         gp.gameState = GamePanel.playState;
+        inventoryPool.play();
+        
     }
+    if(code==KeyEvent.VK_W){
+        if(gp.ui.slotRow!=0){
+            gp.ui.slotRow--;
+            inventoryPool.play();
+        }
+        
+        
+    }
+    if(code==KeyEvent.VK_A){
+        if(gp.ui.slotCol!=0){
+        gp.ui.slotCol--;
+        inventoryPool.play();
+    }
+    }
+    if(code==KeyEvent.VK_S){
+        if(gp.ui.slotRow!=3){
+        gp.ui.slotRow++;
+        inventoryPool.play();
+       
+    }}
+        if(code==KeyEvent.VK_D){
+            if(gp.ui.slotCol!=4){
+            gp.ui.slotCol++;
+            inventoryPool.play();
+        }
+}
 }
 
 private void handleDialogueState(int code) {

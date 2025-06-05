@@ -1,4 +1,4 @@
-package main.Sounds;
+package Sounds;
 
 
 import java.net.URL;
@@ -25,6 +25,7 @@ private URL soundURL[]= new URL[30];
     soundURL[7]=getClass().getResource("/sounds/damage.wav");
     soundURL[8]= getClass().getResource("/sounds/Healing.wav");
     soundURL[9]= getClass().getResource("/sounds/fanfare.wav");
+    soundURL[10]= getClass().getResource("/sounds/cursor.wav");
     
  }
 

@@ -21,6 +21,8 @@ public class UI {
     public String currentDialogue;
     TitleScreen titleScreen;
     public  int commandNum =0;
+    public int slotCol=0;
+    public int slotRow=0;
     public UI(GamePanel gp){
     
         this.gp=gp;
@@ -66,6 +68,7 @@ public class UI {
       }
       if(gp.gameState == GamePanel.characterState){
         drawCharacterScreen();
+        drawInventory();
       }
 
     }
@@ -228,6 +231,56 @@ public class UI {
 
 
     }
+    public void drawInventory(){
+      int frameX=gp.tileSize*9;
+      int frameY=gp.tileSize;
+      int frameHeight=gp.tileSize*5;
+      int frameWidth=gp.tileSize*6;
+      drawSubWindows(frameX, frameY, frameWidth, frameHeight);
+        //slots
+        final int slotXstart =frameX+20;
+        final int slotYstart =frameY+20;
+        int slotX=slotXstart;
+        int slotY = slotYstart;
+        //draw player items
+        for(int i =0;i<gp.player.inventory.size();i++){
+          if(gp.player.inventory.get(i)!=null){
+            g2.drawImage(gp.player.inventory.get(i).down1, slotX,slotY,null);
+            slotX+=gp.tileSize;
+            if(i==4 || i==9 || i==14){slotX=slotXstart;slotY+=gp.tileSize;} 
+          }
+        }
+        //cursor
+        int cursorX=slotXstart+(gp.tileSize*slotCol);
+        int cursorY=slotYstart+(gp.tileSize*slotRow);
+        int cursorWidth=gp.tileSize;
+        int cursorHeight=gp.tileSize;
+        //draw cursor
+        g2.setColor(Color.WHITE);
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+
+        int dFrameX=frameX;
+        int dFrameY=frameY+frameHeight;
+        int dFrameWidth=frameWidth;
+        int dFrameHeight=gp.tileSize*3;
+        drawSubWindows(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+        int textX=dFrameX+20;
+        int textY=dFrameY+gp.tileSize;
+        g2.setFont(g2.getFont().deriveFont(18f));
+        int itemIndex = getItemIndexOnSlot();
+        if(itemIndex<gp.player.inventory.size()){
+          for(var line :gp.player.inventory.get(itemIndex).description.split("\n")){
+            g2.drawString(line, textX, textY);
+            textY+=32;
+          }
+          
+        }
+    }
+public int getItemIndexOnSlot(){
+int itemIndex=slotCol+(slotRow*5);
+return itemIndex;
+}
     public void drawSubWindows(int x, int y  , int width, int height){
         Color c= new Color(0,0,0,200);
         g2.setColor(c);
