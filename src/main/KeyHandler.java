@@ -47,10 +47,12 @@ public void keyPressed(KeyEvent e) {
 private void handleTitleState(int code) {
     if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
         gp.ui.commandNum--;
+        inventoryPool.play();
         if(gp.ui.commandNum < 0) gp.ui.commandNum = 2;
     }
     if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
         gp.ui.commandNum++;
+        inventoryPool.play();
         if(gp.ui.commandNum > 2) gp.ui.commandNum = 0;
     }
     if(code == KeyEvent.VK_ENTER) {
@@ -130,8 +132,11 @@ private void handleCharacterState(int code) {
             if(gp.ui.slotCol!=4){
             gp.ui.slotCol++;
             inventoryPool.play();
+        }}
+        if(code==KeyEvent.VK_ENTER){
+           gp.player.selectItem();
         }
-}
+
 }
 
 private void handleDialogueState(int code) {

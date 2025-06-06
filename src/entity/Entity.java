@@ -40,7 +40,12 @@ public  abstract class  Entity {
     public String dialogues[] =new String[20];
     int dialogueIndex=0;
     public int type;//0 =player , 1=npc , 2=monster
-
+    public final int type_player=1;
+    public final int type_monster=2;
+    public final int type_sword=3;
+    public final int type_axe=4;
+    public final int type_shield=5;
+    public final int type_consumable=2;
     //character status
     public String name ;
     public int speed;
@@ -100,7 +105,8 @@ public  abstract class  Entity {
     }
     }
 public  void setAction(){};
-public void damageReaction(){}
+public  void damageReaction(){};
+public   void use(Entity entity){};
 public void update(){
 setAction();
 
@@ -110,7 +116,7 @@ gp.cChecker.checkObject(this, false);
 gp.cChecker.checkEntity(this, gp.npc);
 gp.cChecker.checkEntity(this, gp.monster);
  boolean contactPlayer=gp.cChecker.checkPlayer(this);
- if(this.type==2 && contactPlayer==true){
+ if(this.type==type_monster && contactPlayer==true){
     if(gp.player.invincible==false){
         gp.player.life-=1;
         gp.playSE(7);
