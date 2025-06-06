@@ -57,6 +57,7 @@ public Entity monster[] =new Entity[20];
 public InteractiveTile iTile[] = new InteractiveTile[50]; 
 ArrayList<Entity> entityList=new ArrayList<>();
 public ArrayList<Entity> projectileList=new ArrayList<>();
+public ArrayList<Entity> particlesList=new ArrayList<>();
 
 //sound 
 Sound music = new Sound();
@@ -170,6 +171,18 @@ public SoundPool cuttingPool;
                         
                     }
                 }
+                for(int i=0;i<particlesList.size();i++){
+                    if(particlesList.get(i)!=null){
+                        if(particlesList.get(i).alive==true ){
+                            particlesList.get(i).update();
+                        }
+                        if(particlesList.get(i).alive==false){
+                            particlesList.remove(i);
+                        }
+                        
+                    }
+                }
+
                 for(int i =0 ;i<iTile.length;i++){
                     if(iTile[i]!=null){
                         iTile[i].update();
@@ -217,6 +230,10 @@ public SoundPool cuttingPool;
                    for(int i=0;i<projectileList.size();i++){
                     if(projectileList.get(i)!=null)
                     entityList.add(projectileList.get(i));
+                   }
+                   for(int i=0;i<particlesList.size();i++){
+                    if(particlesList.get(i)!=null)
+                    entityList.add(particlesList.get(i));
                    }
                    //sort
                    Collections.sort(entityList,c);

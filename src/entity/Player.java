@@ -278,6 +278,7 @@ public void attacking(){
 
 public void damageIneractiveTile(int iTileIndex){
     if(iTileIndex!=999 && gp.iTile[iTileIndex].destructible==true & gp.iTile[iTileIndex].isCorrectItem(this)==true){
+        generateParticule(gp.iTile[iTileIndex], gp.iTile[iTileIndex]);
         gp.iTile[iTileIndex].playSE();
         gp.iTile[iTileIndex]=gp.iTile[iTileIndex].getDestroyedForm();
 
