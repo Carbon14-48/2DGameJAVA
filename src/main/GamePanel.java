@@ -83,6 +83,8 @@ public SoundPool cuttingPool;
  public  static final int pauseState =2;
  public  static final int dialogueState=3;
  public  static final int characterState=4;
+ public static final int OptionsState=5;
+ 
  
 
 

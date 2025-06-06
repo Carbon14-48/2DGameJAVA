@@ -36,6 +36,8 @@ public void keyPressed(KeyEvent e) {
         case GamePanel.dialogueState:
             handleDialogueState(code);
             break;
+            case GamePanel.OptionsState:
+            optionsState(code);
         default:
             // Optionally handle unknown state
             break;
@@ -95,6 +97,10 @@ private void handlePlayState(int code) {
     if(code==KeyEvent.VK_F){
         shootKeyPressed=true;
     }
+    if(code==KeyEvent.VK_ESCAPE){
+        gp.gameState=GamePanel.OptionsState;
+    }
+    
 }
 
 private void handlePauseState(int code) {
@@ -149,6 +155,38 @@ private void handleDialogueState(int code) {
 }
 
 
+public void optionsState(int code){
+    if(code==KeyEvent.VK_ESCAPE){
+        gp.gameState=GamePanel.playState;
+    }
+    if(code ==KeyEvent.VK_ENTER){
+        enterPressed=true;
+    }
+     int maxCommandNum =0;
+    switch (gp.ui.subState) {
+        case 0: maxCommandNum=5;
+            
+            break;
+    
+        
+    }
+    if(code==KeyEvent.VK_W){
+        gp.playSE(10);
+        gp.ui.commandNum--;
+        if(gp.ui.commandNum<0){
+            gp.ui.commandNum=maxCommandNum;
+        }
+
+    }
+    if(code==KeyEvent.VK_S){
+        gp.playSE(10);
+        gp.ui.commandNum++;
+        if(gp.ui.commandNum>maxCommandNum){
+            gp.ui.commandNum=0;
+        }
+            
+    }
+}
 
 
     @Override

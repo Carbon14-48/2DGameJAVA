@@ -23,6 +23,8 @@ public class UI {
     public  int commandNum =0;
     public int slotCol=0;
     public int slotRow=0;
+    int subState=0;
+
     public UI(GamePanel gp){
     
         this.gp=gp;
@@ -72,6 +74,9 @@ public class UI {
       if(gp.gameState == GamePanel.characterState){
         drawCharacterScreen();
         drawInventory();
+      }
+      if(gp.gameState==GamePanel.OptionsState){
+        drawOptionsScreen();
       }
 
     }
@@ -164,6 +169,83 @@ public class UI {
 
       }
     }
+     public void drawOptionsScreen(){
+      g2.setColor(Color.white);
+      g2.setFont(g2.getFont().deriveFont(32F));
+
+      int frameX=gp.tileSize*6;
+      int frameY=gp.tileSize;
+      int frameWidth=gp.tileSize*8;
+      int frameHeight=gp.tileSize*10;
+      drawSubWindows(frameX, frameY, frameWidth, frameHeight);
+
+      switch (subState) {
+        case 0:
+          options_top(frameX, frameY);
+          break;
+      
+          case 1:
+          
+          break;
+          case 2:
+          
+          break;
+      }
+
+    }
+    public void options_top(int frameX, int frameY){
+      int textX;
+      int textY;
+      String text ="Options";
+      textX= getXToCenterText(text);
+      textY=frameY+gp.tileSize;
+      g2.drawString(text, textX, textY);
+
+      //full screen on-<off
+      textX =frameX +gp.tileSize;
+      textY=frameY+gp.tileSize*2;
+      g2.drawString("Full screen", textX, textY);
+      if(commandNum==0){
+        g2.drawString(">", textX-25, textY);
+      }
+      ///music 
+    textY+=gp.tileSize;
+    g2.drawString("Music", textX, textY);
+    if(commandNum==1){
+      g2.drawString(">", textX-25, textY);
+    }
+    textY+=gp.tileSize;
+    g2.drawString("SE", textX, textY);
+    if(commandNum==2){
+      g2.drawString(">", textX-25, textY);    }
+    textY+=gp.tileSize;
+    g2.drawString("Control", textX, textY);
+    if(commandNum==3){
+      g2.drawString(">", textX-25, textY);    }
+    textY+=gp.tileSize;
+    g2.drawString("End Game", textX, textY);
+    if(commandNum==4){
+      g2.drawString(">", textX-25, textY);    }
+    textY+=gp.tileSize*1;
+    g2.drawString("Back", textX, textY);
+    if(commandNum==5){
+      g2.drawString(">", textX-25, textY);        }
+      //full screen chcekckbox
+    textX=frameX+(int)(gp.tileSize*4.5);
+    textY=frameY+gp.tileSize+24;
+    g2.setStroke(new BasicStroke(3));
+      g2.drawRect(textX, textY, 24, 24);
+
+      //music volume
+      textY+=gp.tileSize;
+      g2.drawRect(textX, textY, 120, 24);
+      //se volume
+      textY+=gp.tileSize;
+      g2.drawRect(textX, textY, 120, 24);
+      
+    }
+  
+  
     public void drawCharacterScreen(){
       // create a frame 
       final int frameX=gp.tileSize*2;
