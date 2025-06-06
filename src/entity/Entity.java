@@ -295,10 +295,10 @@ if(invincible==true){
         int size= generator.getParticleSize();
         int speed = generator.getParticleSpeed();
         int maxLife=generator.getParticleMaxLife();
-        Particle p1= new Particle(gp, generator, color, size, speed, maxLife,-2 , -1);
-        Particle p2= new Particle(gp, generator, color, size, speed, maxLife,2 , -1);
-        Particle p3= new Particle(gp, generator, color, size, speed, maxLife,-2 , 1);
-        Particle p4= new Particle(gp, generator, color, size, speed, maxLife,2, 1);
+        Particle p1= new Particle(gp, target, color, size, speed, maxLife,-2 , -1);
+        Particle p2= new Particle(gp, target, color, size, speed, maxLife,2 , -1);
+        Particle p3= new Particle(gp, target, color, size, speed, maxLife,-2 , 1);
+        Particle p4= new Particle(gp, target, color, size, speed, maxLife,2, 1);
 
         gp.particlesList.add(p1);
         gp.particlesList.add(p2);

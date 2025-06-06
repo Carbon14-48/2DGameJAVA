@@ -14,6 +14,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,9 +25,9 @@ public class GamePanel extends JPanel implements Runnable{
     final int scale = 3;
 
   public  final int tileSize = originalTileSize*scale;//48x48
-  public  final int maxScreenCol=16;
+  public  final int maxScreenCol=20;
      public final int maxScreenRow=12;
-     public final int screenWidth = maxScreenCol*tileSize;//768 px
+     public final int screenWidth = maxScreenCol*tileSize;//7960 px
      public final int screenHeight = maxScreenRow*tileSize;//576 px
 //sort
 Comparator<Entity> c = (a,b)->{return a.worldY-b.worldY;};
@@ -38,7 +41,11 @@ Comparator<Entity> c = (a,b)->{return a.worldY-b.worldY;};
 
     public final int maxWorldCol =50;
     public final int maxWorldRow =50;
-    
+    //full screen 
+    int screenWidth2=screenWidth;
+    int screenHeight2=screenHeight;
+    BufferedImage tempScreen;
+    Graphics2D g2;
 
     //tile manager
     TileManager tileM = new TileManager(this);
@@ -101,7 +108,9 @@ public SoundPool cuttingPool;
         cuttingPool = new SoundPool(getClass().getResource("/sounds/cutting.wav"), 4);
         playMusic(5);
         gameState = titleState;
-
+    tempScreen= new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
+    g2=(Graphics2D) tempScreen.getGraphics();
+    setFullScreen();
     }
 
 
@@ -118,7 +127,8 @@ public SoundPool cuttingPool;
             while(gameThread!=null){
                
                 update();
-                repaint();
+                drawToTempScreen();
+                drawToScreen();
                 frameCount++;
         if (System.currentTimeMillis() - lastTime >= 1000) {
             currentFPS = frameCount;
@@ -194,10 +204,18 @@ public SoundPool cuttingPool;
             }
             
         }
-        public void paintComponent(Graphics g){
-            long drawStart= 0;
-            super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g;
+
+        public void setFullScreen(){
+            //get local screen details
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            GraphicsDevice gd =ge.getDefaultScreenDevice();
+            gd.setFullScreenWindow(Main.window);
+
+            screenWidth2=Main.window.getWidth();
+            screenHeight2=Main.window.getHeight();
+        }
+            public void drawToTempScreen(){
+  long drawStart= 0;
             if(keyH.checkDrawTime==true){drawStart=System.nanoTime();}
                 //title Screen
                 if(gameState==titleState){
@@ -257,10 +275,13 @@ public SoundPool cuttingPool;
                         g2.drawString("Draw time ->> "+passed, 0, 550);
                         System.out.println("Draw time :  "+passed );
             }
-                    //Debug Function drawing time 
-                    g2.dispose();
-                }
-            
+            }
+            }
+
+        public void drawToScreen(){
+        Graphics g = getGraphics();
+        g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
+        g.dispose();
         }
 
 public void playMusic(int i){
