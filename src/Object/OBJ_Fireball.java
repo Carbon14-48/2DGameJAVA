@@ -1,5 +1,6 @@
 package Object;
 
+import entity.Entity;
 import entity.Projectile;
 import main.GamePanel;
 
@@ -12,7 +13,7 @@ public class OBJ_Fireball  extends Projectile{
         speed=8;//speed
         maxLife=120;//range
         life=maxLife;
-        attack=2;
+        attack=3;
         useCost=1;
         alive=false;
         getImage();
@@ -27,5 +28,13 @@ public class OBJ_Fireball  extends Projectile{
         right1=setup("/projectile/fireball_right_1", gp.tileSize, gp.tileSize);
         right2=setup("/projectile/fireball_right_2", gp.tileSize, gp.tileSize);
 
+    }
+    public boolean haveResource(Entity user){
+        boolean haveResource=false;
+        if(user.mana>=useCost) haveResource=true;
+        return haveResource;
+    }
+    public void substractResource(Entity user){
+        user.mana-=useCost;
     }
 }

@@ -112,6 +112,16 @@ public  abstract class  Entity {
 public  void setAction(){};
 public  void damageReaction(){};
 public   void use(Entity entity){};
+public void damagePlayer(int attack){
+    if(gp.player.invincible==false){
+        gp.player.life-=1;
+        gp.playSE(7);
+        int damage=attack-gp.player.defense;
+        if(damage<0) damage=0;
+        gp.player.life-=damage;
+        gp.player.invincible=true;
+    }
+}
 public void update(){
 setAction();
 
@@ -122,14 +132,7 @@ gp.cChecker.checkEntity(this, gp.npc);
 gp.cChecker.checkEntity(this, gp.monster);
  boolean contactPlayer=gp.cChecker.checkPlayer(this);
  if(this.type==type_monster && contactPlayer==true){
-    if(gp.player.invincible==false){
-        gp.player.life-=1;
-        gp.playSE(7);
-        int damage=attack-gp.player.defense;
-        if(damage<0) damage=0;
-        gp.player.life-=damage;
-        gp.player.invincible=true;
-    }
+    damagePlayer(attack);
  }
 
 if(collisionOn==false){
@@ -161,7 +164,11 @@ if(invincible==true){
         invincibleCounter=0;
     }
 }
-};
+if(shotAvailableCounter<30){
+    shotAvailableCounter++;
+}
+
+}
 
    public void draw(Graphics2D g2){
         BufferedImage image = null;

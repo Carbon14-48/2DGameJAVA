@@ -66,6 +66,8 @@ public class Player extends Entity{
         maxLife=6;
         life=maxLife;
         strength=1;
+        maxMana=4;
+        mana=maxMana;
         dexterity=1;
         exp=0;
         coin=0;
@@ -206,10 +208,10 @@ if(currentWeapon.type==type_axe){
         }
         
     }
-    if(gp.keyH.shootKeyPressed==true && projectile.alive ==false && shotAvailableCounter==30){//u cant shoot a fire whle other is
+    if(gp.keyH.shootKeyPressed==true && projectile.alive ==false && shotAvailableCounter==30 &&projectile.haveResource(this)==true){//u cant shoot a fire whle other is
         
              projectile.set(worldX,worldY,direction,true,this);                                                   //still on screen
-
+        projectile.substractResource(this);
              gp.projectileList.add(projectile);
              shotAvailableCounter=0;
              gp.firePool.play();
@@ -325,6 +327,7 @@ public void damageMonster(int i,int attack){
     }
 
 }
+
 public void checkLevelUp(){
     if(exp>=nexLevelExp){
         level++;

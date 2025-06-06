@@ -17,11 +17,15 @@ public class OBJ_Potion_Red extends Entity{
     }
     public void use(Entity entity){
         gp.gameState=GamePanel.dialogueState;
-        gp.ui.currentDialogue="A fiery warmth rushes through \nyou—you are alive again";
+        gp.ui.currentDialogue="A fiery warmth rushes through \n MANA RESTORED";
         entity.life+=value;
         if(gp.player.life>gp.player.maxLife){
             gp.player.life=gp.player.maxLife;
+            
         }
+        gp.player.mana=gp.player.maxMana;
+        
+
         gp.playSE(2);
 
     }

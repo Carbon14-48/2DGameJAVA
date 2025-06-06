@@ -6,14 +6,14 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import Object.OBJ_Heart;
-
+import Object.OBJ_ManaCrystal;
 import entity.Entity;
 
 public class UI {
     GamePanel gp;
     Font maruMonica;
    Graphics2D g2;
-   BufferedImage heart_full , heart_half, heart_blank;
+   BufferedImage heart_full , heart_half, heart_blank,crystal_full, crystal_blank;
     public boolean messageOn ;
     ArrayList<String> message = new ArrayList<>();
     ArrayList<Integer> messageCounter = new ArrayList<>();
@@ -38,6 +38,9 @@ public class UI {
             heart_full=heart.image;
             heart_half=heart.image2;
             heart_blank=heart.image3;
+            Entity crystal = new OBJ_ManaCrystal(gp);
+            crystal_full=crystal.image;
+            crystal_blank=crystal.image2;
         
     }
     public void draw(Graphics2D  g2){
@@ -99,6 +102,24 @@ public class UI {
                 i++;
                 x+=gp.tileSize;
 
+              }
+              ///draw Max mana
+              x=(gp.tileSize/2)-5;
+              y=(int)(gp.tileSize*1.5);
+              i=0;
+              while (i<gp.player.maxMana) {
+                g2.drawImage(crystal_blank,x, y,null);
+                i++;
+                x+=35;
+                
+              }
+              //draw Mana
+              x=(gp.tileSize/2)-5;
+              y=(int)(gp.tileSize*1.5);
+              i=0;
+              while(i<gp.player.mana){
+                g2.drawImage(crystal_full,x, y,null);
+                i++;x+=35;
               }
 
     }
@@ -164,6 +185,8 @@ public class UI {
       textY+=lineHeight;
       g2.drawString("Life", textX, textY);
       textY+=lineHeight;
+      g2.drawString("Mana", textX, textY);
+      textY+=lineHeight;
       g2.drawString("Strength", textX, textY);
       textY+=lineHeight;
       g2.drawString("Dextirity", textX, textY);
@@ -191,7 +214,12 @@ public class UI {
       textX=getXForRightAlignedText(value, tailX);
       g2.drawString(value, textX, textY);
       textY+=lineHeight;
+
       value=String.valueOf(gp.player.life+"/"+gp.player.maxLife);
+      textX=getXForRightAlignedText(value, tailX);
+      g2.drawString(value, textX, textY);
+      textY+=lineHeight;
+      value=String.valueOf(gp.player.mana+"/"+gp.player.maxMana);
       textX=getXForRightAlignedText(value, tailX);
       g2.drawString(value, textX, textY);
       textY+=lineHeight;
