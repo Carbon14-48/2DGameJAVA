@@ -168,7 +168,7 @@ if(currentWeapon.type==type_axe){
          ///check monster collision
          int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
          contactMonster(monsterIndex);
-         
+         gp.cChecker.checkEntity(this, gp.iTile);
         //event checkng
         gp.eventHandler.checkEvent();
 
@@ -260,6 +260,8 @@ public void attacking(){
         //check Monster collision with the updated work
         int monsterIndex=gp.cChecker.checkEntity(this, gp.monster);
         damageMonster(monsterIndex,attack);
+        int iTileIndex=gp.cChecker.checkEntity(this, gp.iTile);
+        damageIneractiveTile(iTileIndex);
 //restore original data
         worldX=currentWorldX;
         worldY=currentWorldY;
@@ -274,6 +276,13 @@ public void attacking(){
     }
 }
 
+public void damageIneractiveTile(int iTileIndex){
+    if(iTileIndex!=999 && gp.iTile[iTileIndex].destructible==true & gp.iTile[iTileIndex].isCorrectItem(this)==true){
+        gp.iTile[iTileIndex].playSE();
+        gp.iTile[iTileIndex]=gp.iTile[iTileIndex].getDestroyedForm();
+
+    }
+}
 
 
 public void interactNPC(int i){
@@ -345,15 +354,21 @@ public void checkLevelUp(){
     public void pickUpObject(int i){
         String text ;
         if(i!=999){
-            if(inventory.size()!=inventorySize){
-            inventory.add(gp.obj[i]);
-            gp.playSE(1);
-            text ="U picked up A "+gp.obj[i].name +"!";
+            if(gp.obj[i].type==type_pickUPOnly){
+                gp.obj[i].use(this);
+                gp.obj[i]=null;
             }else{
-                text ="The backpack Is full!!";
+                if(inventory.size()!=inventorySize){
+                    inventory.add(gp.obj[i]);
+                    gp.playSE(1);
+                    text ="U picked up A "+gp.obj[i].name +"!";
+                    }else{
+                        text ="The backpack Is full!!";
+                    }
+                    gp.ui.addMessage(text);
+                    gp.obj[i]=null;
             }
-            gp.ui.addMessage(text);
-            gp.obj[i]=null;
+           
         }
     }
 

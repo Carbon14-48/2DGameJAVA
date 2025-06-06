@@ -45,7 +45,8 @@ public  abstract class  Entity {
     public final int type_sword=3;
     public final int type_axe=4;
     public final int type_shield=5;
-    public final int type_consumable=2;
+    public final int type_consumable=6;
+    public final int type_pickUPOnly = 7;
     //character status
     public String name ;
     public int speed;
@@ -64,6 +65,7 @@ public  abstract class  Entity {
     public int shotAvailableCounter =0;
     public int maxMana ;
     public int mana;
+     public int value;
     public Projectile projectile;
     
     // item attributes
@@ -230,7 +232,7 @@ if(invincible==true){
         if(dying==true){
             dyingAnimation(g2);
         }
-            g2.drawImage(image, screenX,screenY, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(image, screenX,screenY,  null);
             changeAlpha(g2, 1f);        }
     }
     public void dyingAnimation(Graphics2D g2){
@@ -253,6 +255,20 @@ if(invincible==true){
     }
     public  void changeAlpha(Graphics2D g2 ,  float alphaValue){
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alphaValue));
+    }
+
+    public  void checkDrop(){
+
+    }
+    public void dropItem(Entity dropedItem){
+        for(int i =0;i<gp.obj.length;i++){
+            if(gp.obj[i]==null){
+                gp.obj[i]=dropedItem;
+                gp.obj[i].worldX=worldX;//las place of  monster before die
+                gp.obj[i].worldY=worldY;
+                break;
+            }
+        }
     }
 
 }

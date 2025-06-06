@@ -7,6 +7,7 @@ import Sounds.SoundPool;
 import entity.Entity;
 import entity.Player;
 import tile.TileManager;
+import tile_interactives.InteractiveTile;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -50,9 +51,10 @@ Comparator<Entity> c = (a,b)->{return a.worldY-b.worldY;};
  public UI ui = new UI(this);
  // objects 
 public AssetSetter aSetter = new AssetSetter(this);
-public Entity obj[]=new Entity[10];
+public Entity obj[]=new Entity[20];
 public Entity npc[] = new Entity[10];
 public Entity monster[] =new Entity[20];
+public InteractiveTile iTile[] = new InteractiveTile[50]; 
 ArrayList<Entity> entityList=new ArrayList<>();
 public ArrayList<Entity> projectileList=new ArrayList<>();
 
@@ -63,6 +65,7 @@ public Sound se = new Sound();
 public SoundPool swingPool;
 public SoundPool hitPool;
 public SoundPool firePool;
+public SoundPool cuttingPool;
 
 
 ///gAME STATE 
@@ -90,9 +93,11 @@ public SoundPool firePool;
         aSetter.setObject();
         aSetter.setNPC();
         aSetter.setMonster();
-        swingPool = new SoundPool(getClass().getResource("/sounds/swinging.wav"), 2); // pool size 10
-        hitPool = new SoundPool(getClass().getResource("/sounds/hitMonster.wav"), 2);
-        firePool = new SoundPool(getClass().getResource("/sounds/fireball.wav"), 2);
+        aSetter.setInteractiveTiles();
+        swingPool = new SoundPool(getClass().getResource("/sounds/swinging.wav"), 4); // pool size 10
+        hitPool = new SoundPool(getClass().getResource("/sounds/hitMonster.wav"), 4);
+        firePool = new SoundPool(getClass().getResource("/sounds/fireball.wav"), 4);
+        cuttingPool = new SoundPool(getClass().getResource("/sounds/cutting.wav"), 4);
         playMusic(5);
         gameState = titleState;
 
@@ -148,6 +153,7 @@ public SoundPool firePool;
                             monster[i].update();
                         }
                         if(monster[i].alive==false){
+                            monster[i].checkDrop();
                             monster[i]=null;
                         }
                         
@@ -162,6 +168,11 @@ public SoundPool firePool;
                             projectileList.remove(i);
                         }
                         
+                    }
+                }
+                for(int i =0 ;i<iTile.length;i++){
+                    if(iTile[i]!=null){
+                        iTile[i].update();
                     }
                 }
             }
@@ -182,6 +193,12 @@ public SoundPool firePool;
                    
                     //tile
                     tileM.draw(g2);
+                    //intreracetives tiles
+                    for(int i =0; i<iTile.length;i++){
+                        if(iTile[i]!=null){
+                            iTile[i].draw(g2);
+                        }
+                    }
                     // add all entities to the list
                    entityList.add(player);
                    for(int i=0;i<npc.length;i++){

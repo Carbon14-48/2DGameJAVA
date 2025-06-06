@@ -2,6 +2,9 @@ package Monster;
 
 import java.util.Random;
 
+import Object.OBJ_Coin_Bronze;
+import Object.OBJ_Heart;
+import Object.OBJ_ManaCrystal;
 import Object.OBJ_Rock;
 import entity.Entity;
 import main.GamePanel;
@@ -73,6 +76,16 @@ int i=random.nextInt(100)+1;
         shotAvailableCounter=0;
         
     }
+}
+
+@Override
+public void checkDrop() {
+    int i = new Random().nextInt(100)+1;
+    // based on number we decide what to drop
+    if(i<50) dropItem(new OBJ_Coin_Bronze(gp));
+    if(i>=50 && i<=75) dropItem(new OBJ_ManaCrystal(gp));
+    if(i>=90 && i<=100) dropItem(new OBJ_Heart(gp));
+    
 }
     }
    
