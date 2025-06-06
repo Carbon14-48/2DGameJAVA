@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 import Sounds.SoundPool;
 
 public class KeyHandler implements KeyListener{
-    public boolean upPressed , downPressed, leftPressed , rightPressed,enterPressed;
+    public boolean upPressed , downPressed, leftPressed , rightPressed,enterPressed, shootKeyPressed;
     boolean checkDrawTime;
     GamePanel gp;
     public SoundPool inventoryPool = new SoundPool(getClass().getResource("/sounds/cursor.wav"), 4);
@@ -92,6 +92,9 @@ private void handlePlayState(int code) {
     if(code==KeyEvent.VK_R){
         gp.tileM.loadMap("/maps/worldV2.txt");
     }
+    if(code==KeyEvent.VK_F){
+        shootKeyPressed=true;
+    }
 }
 
 private void handlePauseState(int code) {
@@ -176,6 +179,9 @@ private void handleDialogueState(int code) {
             }else if(checkDrawTime==true){
                 checkDrawTime=false;
             }
+        }
+        if(code==KeyEvent.VK_F){
+            shootKeyPressed=false;
         }
         
     }

@@ -9,6 +9,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import Object.OBJ_Fireball;
 import Object.OBJ_Key;
 
 import Object.OBJ_Shield_Wood;
@@ -69,6 +71,7 @@ public class Player extends Entity{
         coin=0;
         currentWeapon=new OBJ_Sword_Normal(gp);
         currentShield=new OBJ_Shield_Wood(gp);
+        projectile=new OBJ_Fireball(gp);
         attack=getAttack();
         defense=getDefense();
         setInventoryItems();
@@ -203,7 +206,15 @@ if(currentWeapon.type==type_axe){
         }
         
     }
+    if(gp.keyH.shootKeyPressed==true && projectile.alive ==false && shotAvailableCounter==30){//u cant shoot a fire whle other is
+        
+             projectile.set(worldX,worldY,direction,true,this);                                                   //still on screen
 
+             gp.projectileList.add(projectile);
+             shotAvailableCounter=0;
+             gp.firePool.play();
+            
+             }
     //invincible state 
     if(invincible==true){
 
@@ -212,6 +223,9 @@ if(currentWeapon.type==type_axe){
             invincible=false;
             invincibleCounter=0;
         }
+    }
+    if(shotAvailableCounter<30){
+        shotAvailableCounter++;
     }
     }
 
@@ -243,7 +257,7 @@ public void attacking(){
 
         //check Monster collision with the updated work
         int monsterIndex=gp.cChecker.checkEntity(this, gp.monster);
-        damageMonster(monsterIndex);
+        damageMonster(monsterIndex,attack);
 //restore original data
         worldX=currentWorldX;
         worldY=currentWorldY;
@@ -278,7 +292,7 @@ public void interactNPC(int i){
 public void contactMonster(int i ){
 
     if(i!=999){
-        if(invincible==false){
+        if(invincible==false && gp.monster[i].dying==false ){
         life-=1;
         int damage=gp.monster[i].attack-defense;
         if(damage<0) damage=0;
@@ -288,7 +302,7 @@ public void contactMonster(int i ){
     }
     }
 }
-public void damageMonster(int i){
+public void damageMonster(int i,int attack){
     if(i!=999){
         
     if(gp.monster[i].invincible==false){

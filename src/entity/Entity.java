@@ -61,11 +61,16 @@ public  abstract class  Entity {
     public int coin;
     public Entity currentWeapon;
     public Entity currentShield;
+    public int shotAvailableCounter =0;
+    public int maxMana ;
+    public int mana;
+    public Projectile projectile;
     
     // item attributes
     public int attackValue;
     public int defenseValue;
     public String description;
+    public int useCost;
 
     public Entity(GamePanel gp){
         this.gp=gp;
@@ -233,7 +238,7 @@ if(invincible==true){
         if(dyingcounter>i*6 && dyingcounter <=i*7)changeAlpha(g2, 0f);
         if(dyingcounter>i*7 && dyingcounter <=i*8)changeAlpha(g2, 1f);
         if(dyingcounter>i){
-            dying=false;
+           
             alive=false;
         }
 

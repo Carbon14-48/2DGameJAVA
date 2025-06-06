@@ -54,6 +54,7 @@ public Entity obj[]=new Entity[10];
 public Entity npc[] = new Entity[10];
 public Entity monster[] =new Entity[20];
 ArrayList<Entity> entityList=new ArrayList<>();
+public ArrayList<Entity> projectileList=new ArrayList<>();
 
 //sound 
 Sound music = new Sound();
@@ -61,7 +62,7 @@ public Sound se = new Sound();
 //using sound pool for ressource eaterrs
 public SoundPool swingPool;
 public SoundPool hitPool;
-;
+public SoundPool firePool;
 
 
 ///gAME STATE 
@@ -89,8 +90,9 @@ public SoundPool hitPool;
         aSetter.setObject();
         aSetter.setNPC();
         aSetter.setMonster();
-        swingPool = new SoundPool(getClass().getResource("/sounds/swinging.wav"), 1); // pool size 10
-        hitPool = new SoundPool(getClass().getResource("/sounds/hitMonster.wav"), 1);
+        swingPool = new SoundPool(getClass().getResource("/sounds/swinging.wav"), 2); // pool size 10
+        hitPool = new SoundPool(getClass().getResource("/sounds/hitMonster.wav"), 2);
+        firePool = new SoundPool(getClass().getResource("/sounds/fireball.wav"), 2);
         playMusic(5);
         gameState = titleState;
 
@@ -151,6 +153,17 @@ public SoundPool hitPool;
                         
                     }
                 }
+                for(int i=0;i<projectileList.size();i++){
+                    if(projectileList.get(i)!=null){
+                        if(projectileList.get(i).alive==true ){
+                            projectileList.get(i).update();
+                        }
+                        if(projectileList.get(i).alive==false){
+                            projectileList.remove(i);
+                        }
+                        
+                    }
+                }
             }
             if(gameState==pauseState){
                
@@ -183,6 +196,10 @@ public SoundPool hitPool;
                    for(int i=0;i<monster.length;i++){
                     if(monster[i]!=null)
                     entityList.add(monster[i]);
+                   }
+                   for(int i=0;i<projectileList.size();i++){
+                    if(projectileList.get(i)!=null)
+                    entityList.add(projectileList.get(i));
                    }
                    //sort
                    Collections.sort(entityList,c);
