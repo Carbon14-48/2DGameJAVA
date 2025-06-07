@@ -50,12 +50,12 @@ public class EventHandler {
             if(hit(0,27, 14, "any") == true) { damagePit(GamePanel.dialogueState); }
             else if(hit(0,22, 6, "any") == true) { healingPool(GamePanel.dialogueState); }
              else  if(hit(0,7, 39, "any") == true) { teleport(1, 12, 13, GamePanel.dialogueState); }
-             else if(hit(1,9, 39, "any") == true) {  teleport(2, 12, 13, GamePanel.dialogueState); }
-            else if(hit(1,12, 9, "any") == true) { teleport(0, 7, 39, GamePanel.dialogueState);  
+             else if(hit(1,8, 8, "any") == true) {  teleport(0, 8, 39, GamePanel.dialogueState); }
+            else if(hit(1,10, 39, "any") == true) { teleport(2, 12, 13, GamePanel.dialogueState);  
             }
             // MAP 2 EVENTS
-            else if(hit(2,12, 9, "any") == true) { 
-                teleport(1, 10, 39, GamePanel.dialogueState);  // ← Go BACK to map 1!
+            else if(hit(2,8, 11, "any") == true) { 
+                teleport(1, 10, 40, GamePanel.dialogueState);  // ← Go BACK to map 1!
             }
            
         }
