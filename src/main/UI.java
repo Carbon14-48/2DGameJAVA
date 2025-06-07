@@ -185,14 +185,16 @@ public class UI {
           break;
       
           case 1:
-          
+          options_fullScreenNotification( frameX, frameY);
           break;
           case 2:
           
           break;
       }
+      gp.keyH.enterPressed=false;
 
     }
+    
     public void options_top(int frameX, int frameY){
       int textX;
       int textY;
@@ -207,7 +209,15 @@ public class UI {
       g2.drawString("Full screen", textX, textY);
       if(commandNum==0){
         g2.drawString(">", textX-25, textY);
-      }
+        if(gp.keyH.enterPressed==true){
+          if(gp.fullScreenOn==false) {
+              gp.fullScreenOn=true;
+          } else if(gp.fullScreenOn==true){
+              gp.fullScreenOn=false;
+          }
+          subState=1;
+      }    
+
       ///music 
     textY+=gp.tileSize;
     g2.drawString("Music", textX, textY);
@@ -235,6 +245,7 @@ public class UI {
     textY=frameY+gp.tileSize+24;
     g2.setStroke(new BasicStroke(3));
       g2.drawRect(textX, textY, 24, 24);
+if(gp.fullScreenOn==true) g2.fillRect(textX, textY, 24, 24);
 
       //music volume
       textY+=gp.tileSize;
@@ -242,7 +253,7 @@ public class UI {
       //se volume
       textY+=gp.tileSize;
       g2.drawRect(textX, textY, 120, 24);
-      
+      }
     }
   
   
@@ -423,5 +434,23 @@ return itemIndex;
     public int getXForRightAlignedText(String text , int tailX){
       int length=(int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
          return tailX-length;
+    }
+    public void options_fullScreenNotification(int frameX,int frameY){
+      int textX=frameX+gp.tileSize;
+      int textY=frameY+gp.tileSize*3;
+      currentDialogue="The change will take effect \nafter restarting the game";
+      for(String line : currentDialogue.split("\n")){
+        g2.drawString(line ,textX, textY);
+        textY+=40;
+      }
+      //back
+      textY=frameY+gp.tileSize*9;
+      g2.drawString("Back", textX, textY);
+      if(commandNum==0){
+        g2.drawString(">", textX-25, textY);
+        if(gp.keyH.enterPressed==true){
+          subState=0;
+        }
+      }
     }
 }

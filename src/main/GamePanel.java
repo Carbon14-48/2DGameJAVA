@@ -46,7 +46,7 @@ Comparator<Entity> c = (a,b)->{return a.worldY-b.worldY;};
     int screenHeight2=screenHeight;
     BufferedImage tempScreen;
     Graphics2D g2;
-
+    boolean fullScreenOn=false;
     //tile manager
     TileManager tileM = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
