@@ -6,13 +6,16 @@ import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 
 public class Sound {
   private Clip clip;
   
-
+    FloatControl fc;
 private URL soundURL[]= new URL[30];
+public int volumeScale=3;
+float volume;
 
  public Sound(){
     soundURL[0]=getClass().getResource("/sounds/BlueBoyAdventure.wav");
@@ -45,7 +48,8 @@ private URL soundURL[]= new URL[30];
       AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
       clip = AudioSystem.getClip();
       clip.open(ais);
-      
+      fc=(FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+      checkVolme();
   } catch (Exception e) {
       System.out.println("Error opening sound file at index " + i + ": " + e.getMessage());
       e.printStackTrace();
@@ -84,6 +88,34 @@ private URL soundURL[]= new URL[30];
 
 
  }
- 
+ public void checkVolme(){
+    switch ((volumeScale)) {
+        case 0://-80 6
+            volume=-80;
+            break;
+            case 1:
+            volume=20;
+            break;
+    
+            case 2:
+            volume=7;
+            break;
+    
+            case 3:
+            volume=-5;
+            break;
+            case 4:
+            volume=4;
+            break;
+            case 5:
+            volume=6;
+            break;
+    
+    
+    
+        
+    }
+    fc.setValue(volume);
+ }
 }
 
