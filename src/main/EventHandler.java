@@ -48,8 +48,16 @@ public class EventHandler {
         
         if(canTouchEvent == true) {
             if(hit(0,27, 14, "any") == true) { damagePit(GamePanel.dialogueState); }
-            if(hit(0,23, 6, "any") == true) { healingPool(GamePanel.dialogueState); }
-              if(hit(0,10, 39, "any") == true) { teleport(1, 12, 13, GamePanel.dialogueState); }
+            else if(hit(0,22, 6, "any") == true) { healingPool(GamePanel.dialogueState); }
+             else  if(hit(0,7, 39, "any") == true) { teleport(1, 12, 13, GamePanel.dialogueState); }
+             else if(hit(1,9, 39, "any") == true) {  teleport(2, 12, 13, GamePanel.dialogueState); }
+            else if(hit(1,12, 9, "any") == true) { teleport(0, 7, 39, GamePanel.dialogueState);  
+            }
+            // MAP 2 EVENTS
+            else if(hit(2,12, 9, "any") == true) { 
+                teleport(1, 10, 39, GamePanel.dialogueState);  // ← Go BACK to map 1!
+            }
+           
         }
     }
     
@@ -83,7 +91,7 @@ public class EventHandler {
     
       public void damagePit(int gameState) {
         gp.gameState = gameState;
-        gp.playSE(6);
+        gp.playSE(7);
         gp.ui.currentDialogue = "You fall into a pit!";
         gp.player.life -= 1;
         canTouchEvent = false;
@@ -98,6 +106,7 @@ public class EventHandler {
             gp.player.mana = gp.player.maxMana;
             gp.aSetter.setMonster();
             gp.playSE(2);
+            gp.keyH.enterPressed = false;
         }
     }
     
@@ -110,7 +119,7 @@ public class EventHandler {
         previousEventX = gp.player.worldX;
         previousEventY = gp.player.worldY;
         canTouchEvent = false;
-        gp.playSE(13);
+        gp.playSE(6);
     }
     
    
