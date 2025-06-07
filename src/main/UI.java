@@ -217,7 +217,7 @@ public class UI {
           }
           subState=1;
       }    
-
+    }
       ///music 
     textY+=gp.tileSize;
     g2.drawString("Music", textX, textY);
@@ -254,7 +254,7 @@ if(gp.fullScreenOn==true) g2.fillRect(textX, textY, 24, 24);
       textY+=gp.tileSize;
       g2.drawRect(textX, textY, 120, 24);
       }
-    }
+    
   
   
     public void drawCharacterScreen(){
