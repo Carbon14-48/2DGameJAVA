@@ -181,8 +181,7 @@ if(currentWeapon.type==type_axe){
          int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
          contactMonster(monsterIndex);
          gp.cChecker.checkEntity(this, gp.iTile);
-        //event checkng
-        gp.eventHandler.checkEvent();
+        
 
         
         if(collisionOn==false && keyH.enterPressed==false){

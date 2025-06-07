@@ -19,8 +19,8 @@ public class EventHandler {
                 eventRect[map][col][row] = new EventRect();
                 eventRect[map][col][row].x = 23;
                 eventRect[map][col][row].y = 23;
-                eventRect[map][col][row].width = 2;
-                eventRect[map][col][row].height = 2;
+                eventRect[map][col][row].width = 48;
+                eventRect[map][col][row].height = 48;
                 eventRect[map][col][row].eventRectDefaultX = eventRect[map][col][row].x;
                 eventRect[map][col][row].eventRectDefaultY = eventRect[map][col][row].y;
                 col++;
@@ -47,23 +47,17 @@ public class EventHandler {
         }
         
         if(canTouchEvent == true) {
-            if(hit(0,27, 16, "right") == true) { damagePit(GamePanel.dialogueState); }
-            if(hit(0,23, 12, "up") == true) { healingPool(GamePanel.dialogueState); }
-            if(hit(0,10, 39, "any") == true) { teleport(1, 12, 13, GamePanel.dialogueState); }
+            if(hit(0,27, 14, "any") == true) { damagePit(GamePanel.dialogueState); }
+            if(hit(0,23, 6, "any") == true) { healingPool(GamePanel.dialogueState); }
+              if(hit(0,10, 39, "any") == true) { teleport(1, 12, 13, GamePanel.dialogueState); }
         }
     }
     
     public boolean hit(int map,int col, int row, String reqDirection) {
         boolean hit = false;
         if(map==gp.currentMap){
-            if(eventRect[map][col][row].eventDone == true) {
-                return false;
-            }
-            
-            
             gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
             gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
-            
             eventRect[map][col][row].x = col * gp.tileSize + eventRect[map][col][row].eventRectDefaultX;
             eventRect[map][col][row].y = row * gp.tileSize + eventRect[map][col][row].eventRectDefaultY;
             
@@ -76,11 +70,12 @@ public class EventHandler {
                 }
             }
             
+            
             gp.player.solidArea.x = gp.player.solidAreaDefaultX;
             gp.player.solidArea.y = gp.player.solidAreaDefaultY;
             eventRect[map][col][row].x = eventRect[map][col][row].eventRectDefaultX;
             eventRect[map][col][row].y = eventRect[map][col][row].eventRectDefaultY;
-            
+           
         }
       
         return hit;
@@ -109,6 +104,7 @@ public class EventHandler {
     public void teleport(int map, int col, int row, int gameState) {
         gp.gameState = gameState;
         gp.ui.currentDialogue = "Teleport!";
+        gp.currentMap = map;
         gp.player.worldX = gp.tileSize * col;
         gp.player.worldY = gp.tileSize * row;
         previousEventX = gp.player.worldX;
@@ -117,11 +113,5 @@ public class EventHandler {
         gp.playSE(13);
     }
     
-    public void speak(entity.Entity entity) {
-        if(gp.keyH.enterPressed == true) {
-            gp.gameState = GamePanel.dialogueState;
-            gp.player.attackCanceled = true;
-            entity.speak();
-        }
-    }
+   
 }
