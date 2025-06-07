@@ -57,20 +57,33 @@ float volume;
   }
 
  }
-
  public void playSE(int i) {
-   try {
-       if (soundURL[i] == null) {
-           System.out.println("Sound file at index " + i + " not found!");
-           return;
-       }
-       AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
-       Clip tempClip = AudioSystem.getClip();
-       tempClip.open(ais);
-       tempClip.start();
-   } catch (Exception e) {
-       System.out.println("Error playing sound at index " + i + ": " + e.getMessage());
-   }
+    try {
+        if (soundURL[i] == null) {
+            System.out.println("Sound file at index " + i + " not found!");
+            return;
+        }
+        AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
+        Clip tempClip = AudioSystem.getClip();
+        tempClip.open(ais);
+    
+        FloatControl tempFC = (FloatControl)tempClip.getControl(FloatControl.Type.MASTER_GAIN);
+        float tempVolume;
+        switch (volumeScale) {
+            case 0: tempVolume = -80; break;
+            case 1: tempVolume = -20; break;
+            case 2: tempVolume = -7; break;
+            case 3: tempVolume = -5; break;
+            case 4: tempVolume = 4; break;
+            case 5: tempVolume = 6; break;
+            default: tempVolume = -5; break;
+        }
+        tempFC.setValue(tempVolume);
+        
+        tempClip.start();
+    } catch (Exception e) {
+        System.out.println("Error playing sound at index " + i + ": " + e.getMessage());
+    }
 }
 
  public void play(){

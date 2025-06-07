@@ -63,6 +63,7 @@ private void handleTitleState(int code) {
                 gp.stopMusic();
                 gp.playMusic(0);
                 gp.gameState = GamePanel.playState;
+                gp.ui.commandNum=0;
                 break;
             case 1: // LOAD GAME
                 System.out.println("Load Game selected");
@@ -164,12 +165,10 @@ public void optionsState(int code){
     }
      int maxCommandNum =0;
     switch (gp.ui.subState) {
-        case 0: maxCommandNum=5;
-            
-            break;
-            case 3: maxCommandNum=1;
-            
-            break;
+        case 0: maxCommandNum = 5; break;
+        case 1: maxCommandNum = 0; break; // Fullscreen notification
+        case 2: maxCommandNum = 0; break; // Control screen
+        case 3: maxCommandNum = 1; break;
     
         
     }

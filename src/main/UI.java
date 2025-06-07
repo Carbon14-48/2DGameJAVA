@@ -252,7 +252,13 @@ commandNum=0;
     textY+=gp.tileSize*1;
     g2.drawString("Back", textX, textY);
     if(commandNum==5){
-      g2.drawString(">", textX-25, textY);        }
+      g2.drawString(">", textX-25, textY);   
+      if(gp.keyH.enterPressed==true){
+        gp.gameState=GamePanel.playState;
+        commandNum=0;
+        subState=0;
+      }
+         }
       //full screen chcekckbox
     textX=frameX+(int)(gp.tileSize*4.5);
     textY=frameY+gp.tileSize+24;
@@ -470,12 +476,13 @@ if(gp.fullScreenOn==true) g2.fillRect(textX, textY, 24, 24);
       textY+=gp.tileSize*3;
       g2.drawString(text, textX, textY);
       if(commandNum==0){
-
-      
       g2.drawString(">", textX-25, textY);
       if(gp.keyH.enterPressed==true){
         subState=0;
         gp.gameState=GamePanel.titleState;
+        commandNum=0;
+        gp.stopMusic();
+            gp.playMusic(5);
       }
     }
       text="No";
