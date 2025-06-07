@@ -167,6 +167,9 @@ public void optionsState(int code){
         case 0: maxCommandNum=5;
             
             break;
+            case 3: maxCommandNum=1;
+            
+            break;
     
         
     }

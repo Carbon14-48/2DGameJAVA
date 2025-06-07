@@ -189,6 +189,8 @@ public class UI {
           break;
           case 2:
           Options_control(frameX, frameY);break;
+          case 3:
+          Options_endGame(frameX, frameY);break;
       }
       gp.keyH.enterPressed=false;
 
@@ -241,7 +243,12 @@ commandNum=0;
     textY+=gp.tileSize;
     g2.drawString("End Game", textX, textY);
     if(commandNum==4){
-      g2.drawString(">", textX-25, textY);    }
+      g2.drawString(">", textX-25, textY); 
+      if(gp.keyH.enterPressed==true)   {
+        subState=3;
+        commandNum=0;
+      }
+    }
     textY+=gp.tileSize*1;
     g2.drawString("Back", textX, textY);
     if(commandNum==5){
@@ -297,6 +304,7 @@ if(gp.fullScreenOn==true) g2.fillRect(textX, textY, 24, 24);
       g2.drawString(">", textX-25, textY);
       if(gp.keyH.enterPressed==true){
         subState=0;
+        commandNum=3;
       }
     }
 
@@ -446,8 +454,41 @@ if(gp.fullScreenOn==true) g2.fillRect(textX, textY, 24, 24);
             g2.drawString(line, textX, textY);
             textY+=32;
           }
-          
-        }
+         
+        
+    }}
+    public void Options_endGame(int frameX, int frameY){
+      int textX=frameX+gp.tileSize;
+      int textY=frameY+gp.tileSize;
+      currentDialogue="Quit the game  and \n return to the title screen?";
+      for(var line : currentDialogue.split("\n")){
+        g2.drawString(line, textX, textY);
+        textY+=gp.tileSize;
+      }
+      String text="YES";
+      textX=getXToCenterText(text);
+      textY+=gp.tileSize*3;
+      g2.drawString(text, textX, textY);
+      if(commandNum==0){
+
+      
+      g2.drawString(">", textX-25, textY);
+      if(gp.keyH.enterPressed==true){
+        subState=0;
+        gp.gameState=GamePanel.titleState;
+      }
+    }
+      text="No";
+      textX=getXToCenterText(text);
+      textY+=gp.tileSize*3;
+      g2.drawString(text, textX, textY);
+      if(commandNum==1){          
+      g2.drawString(">", textX-25, textY);
+      if(gp.keyH.enterPressed==true){
+        subState=0;
+       commandNum=4;
+      }
+    }
     }
 public int getItemIndexOnSlot(){
 int itemIndex=slotCol+(slotRow*5);
