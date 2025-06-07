@@ -194,11 +194,13 @@ public void optionsState(int code){
                 gp.music.volumeScale--;
                 gp.music.checkVolme();
                 gp.playSE(10);
+                gp.conf.SaveConfig();
             }
             if(gp.ui.commandNum==2&& gp.se.volumeScale>0){
                 gp.se.volumeScale--;
                 
                 gp.playSE(10);
+                gp.conf.SaveConfig();
             }
         }
     }
@@ -208,11 +210,13 @@ public void optionsState(int code){
                 gp.music.volumeScale++;
                 gp.music.checkVolme();
                 gp.playSE(10);
+                gp.conf.SaveConfig();
             }
             if(gp.ui.commandNum==2&& gp.se.volumeScale<5){
                 gp.se.volumeScale++;
             
                 gp.playSE(10);
+                gp.conf.SaveConfig();
             }
         }
     }

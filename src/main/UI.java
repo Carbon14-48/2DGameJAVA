@@ -216,6 +216,7 @@ public class UI {
           } else if(gp.fullScreenOn==true){
               gp.fullScreenOn=false;
           }
+          gp.conf.SaveConfig();
           subState=1;
       }    
     }
@@ -276,6 +277,7 @@ if(gp.fullScreenOn==true) g2.fillRect(textX, textY, 24, 24);
       g2.drawRect(textX, textY, 120, 24);
      volumeWidth =24*gp.se.volumeScale;
       g2.fillRect(textX, textY, volumeWidth, 24);
+    
       }
     
   public void Options_control(int frameX, int frameY){

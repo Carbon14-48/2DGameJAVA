@@ -53,6 +53,7 @@ Comparator<Entity> c = (a,b)->{return a.worldY-b.worldY;};
       public   Player player = new Player(this, keyH);
 
       public EventHandler eventHandler = new EventHandler(this);
+    public  Config conf = new Config(this);
     Thread gameThread;
  public  CollisionChecker cChecker=new CollisionChecker(this);
  public UI ui = new UI(this);
@@ -112,7 +113,10 @@ public SoundPool cuttingPool;
         gameState = titleState;
     tempScreen= new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
     g2=(Graphics2D) tempScreen.getGraphics();
-    setFullScreen();
+    if(fullScreenOn==true){
+        setFullScreen();
+    }
+
     }
 
 
