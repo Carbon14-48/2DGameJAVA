@@ -1,6 +1,6 @@
 package main;
 
-import java.awt.RenderingHints.Key;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -132,7 +132,21 @@ private void handlePlayState(int code) {
         enterPressed = true;
     }
     if(code==KeyEvent.VK_R){
-        gp.tileM.loadMap("/maps/worldV2.txt");
+        System.out.println("R key pressed! Attempting to reload map...");
+        switch (gp.currentMap) {
+            case 0:
+            gp.tileM.loadMap("/maps/worldV2.txt",0);
+            break;
+            case 1:
+            gp.tileM.loadMap("/maps/worldV3.txt",1);
+            break;
+            case 2:
+            gp.tileM.loadMap("/maps/interior01.txt",2);
+            break;
+            
+        }
+        
+        System.out.println("Map reload command sent!");
     }
     if(code==KeyEvent.VK_F){
         shootKeyPressed=true;

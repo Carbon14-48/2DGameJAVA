@@ -54,8 +54,10 @@ public class Player extends Entity{
         getPlayerAttackImage();
     }
     public void setDefaultValues(){
-        worldX=gp.tileSize*23;
+       worldX=gp.tileSize*23;
         worldY=gp.tileSize*21;
+       // worldX=gp.tileSize*12;
+        //worldY=gp.tileSize*13;
         speed=4;
         direction="down";
 
@@ -292,10 +294,10 @@ public void attacking(){
 }
 
 public void damageIneractiveTile(int iTileIndex){
-    if(iTileIndex!=999 && gp.iTile[iTileIndex].destructible==true & gp.iTile[iTileIndex].isCorrectItem(this)==true){
-        generateParticule(gp.iTile[iTileIndex], gp.iTile[iTileIndex]);
-        gp.iTile[iTileIndex].playSE();
-        gp.iTile[iTileIndex]=gp.iTile[iTileIndex].getDestroyedForm();
+    if(iTileIndex!=999 && gp.iTile[gp.currentMap][iTileIndex].destructible==true & gp.iTile[gp.currentMap][iTileIndex].isCorrectItem(this)==true){
+        generateParticule(gp.iTile[gp.currentMap][iTileIndex], gp.iTile[gp.currentMap][iTileIndex]);
+        gp.iTile[gp.currentMap][iTileIndex].playSE();
+        gp.iTile[gp.currentMap][iTileIndex]=gp.iTile[gp.currentMap][iTileIndex].getDestroyedForm();
 
     }
 }
@@ -306,7 +308,7 @@ public void interactNPC(int i){
         if(i!=999){
             attackCanceled=true;
             gp.gameState=GamePanel.dialogueState;
-            gp.npc[i].speak();
+            gp.npc[gp.currentMap][i].speak();
     
         }
     }
@@ -319,9 +321,9 @@ public void interactNPC(int i){
 public void contactMonster(int i ){
 
     if(i!=999){
-        if(invincible==false && gp.monster[i].dying==false ){
+        if(invincible==false && gp.monster[gp.currentMap][i].dying==false ){
         life-=1;
-        int damage=gp.monster[i].attack-defense;
+        int damage=gp.monster[gp.currentMap][i].attack-defense;
         if(damage<0) damage=0;
         life-=damage;
         gp.playSE(7);
@@ -332,20 +334,20 @@ public void contactMonster(int i ){
 public void damageMonster(int i,int attack){
     if(i!=999){
         
-    if(gp.monster[i].invincible==false){
+    if(gp.monster[gp.currentMap][i].invincible==false){
         gp.hitPool.play();
-        int damage=attack-gp.monster[i].defense;
+        int damage=attack-gp.monster[gp.currentMap][i].defense;
         if(damage<0) damage=0;
         gp.ui.addMessage(damage+" damage !");
-        gp.monster[i].life-=damage;
+        gp.monster[gp.currentMap][i].life-=damage;
         
-        gp.monster[i].invincible=true;
-        gp.monster[i].damageReaction();
-        if(gp.monster[i].life<=0){
-            gp.monster[i].dying = true;
-            gp.ui.addMessage("Killed The "+gp.monster[i].name+"!");
-            gp.ui.addMessage("Exp + "+gp.monster[i].exp+"!");
-            exp+=gp.monster[i].exp;
+        gp.monster[gp.currentMap][i].invincible=true;
+        gp.monster[gp.currentMap][i].damageReaction();
+        if(gp.monster[gp.currentMap][i].life<=0){
+            gp.monster[gp.currentMap][i].dying = true;
+            gp.ui.addMessage("Killed The "+gp.monster[gp.currentMap][i].name+"!");
+            gp.ui.addMessage("Exp + "+gp.monster[gp.currentMap][i].exp+"!");
+            exp+=gp.monster[gp.currentMap][i].exp;
             checkLevelUp();
         }
     }
@@ -370,19 +372,19 @@ public void checkLevelUp(){
     public void pickUpObject(int i){
         String text ;
         if(i!=999){
-            if(gp.obj[i].type==type_pickUPOnly){
-                gp.obj[i].use(this);
-                gp.obj[i]=null;
+            if(gp.obj[gp.currentMap][i].type==type_pickUPOnly){
+                gp.obj[gp.currentMap][i].use(this);
+                gp.obj[gp.currentMap][i]=null;
             }else{
                 if(inventory.size()!=inventorySize){
-                    inventory.add(gp.obj[i]);
+                    inventory.add(gp.obj[gp.currentMap][i]);
                     gp.playSE(1);
-                    text ="U picked up A "+gp.obj[i].name +"!";
+                    text ="U picked up A "+gp.obj[gp.currentMap][i].name +"!";
                     }else{
                         text ="The backpack Is full!!";
                     }
                     gp.ui.addMessage(text);
-                    gp.obj[i]=null;
+                    gp.obj[gp.currentMap][i]=null;
             }
            
         }
