@@ -79,13 +79,23 @@ public class Player extends Entity{
         setInventoryItems();
     }
     public  void setInventoryItems(){
+        inventory.clear();//for retry
         inventory.add(currentWeapon);
 inventory.add(currentShield);
 inventory.add(new OBJ_Key(gp));
 inventory.add(new OBJ_Key(gp));
 
     }
-
+    public void setDefaultPositions(){
+        worldX=gp.tileSize*23;
+        worldY=gp.tileSize*21;
+        direction="down";
+    }
+    public void restoreLifeAndMana(){
+        life=maxLife;
+        mana=maxMana;
+        invincible=false;
+    }
 
     public int getAttack(){
         attackArea=currentWeapon.attackArea;
@@ -228,6 +238,11 @@ if(currentWeapon.type==type_axe){
     }
     if(shotAvailableCounter<30){
         shotAvailableCounter++;
+    }
+
+    if(life<=0){
+        gp.gameState=GamePanel.gameOverState;
+        gp.playSE(12);
     }
     }
 

@@ -85,6 +85,7 @@ public SoundPool cuttingPool;
  public  static final int dialogueState=3;
  public  static final int characterState=4;
  public static final int OptionsState=5;
+ public static final int gameOverState=6;
  
  
 
@@ -99,6 +100,22 @@ public SoundPool cuttingPool;
         
     }
 
+    public void retry(){
+        player.restoreLifeAndMana();
+        player.setDefaultPositions();
+        aSetter.setMonster();
+        aSetter.setNPC();
+    }
+    public void restart(){
+        player.setDefaultValues();
+        player.restoreLifeAndMana();
+        player.setDefaultPositions();
+        aSetter.setMonster();
+        aSetter.setNPC();
+    player.setInventoryItems();
+    aSetter.setInteractiveTiles();
+    aSetter.setObject();
+    }
     
     public void setupGame(){
         aSetter.setObject();

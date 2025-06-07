@@ -30,6 +30,7 @@ float volume;
     soundURL[9]= getClass().getResource("/sounds/fanfare.wav");
     soundURL[10]= getClass().getResource("/sounds/cursor.wav");
     soundURL[11]= getClass().getResource("/sounds/fireball.wav");
+    soundURL[12]= getClass().getResource("/sounds/GameOver.wav");
    
     
  }

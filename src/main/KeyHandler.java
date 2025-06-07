@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -38,6 +39,8 @@ public void keyPressed(KeyEvent e) {
             break;
             case GamePanel.OptionsState:
             optionsState(code);
+        case GamePanel.gameOverState:
+        handleGameOverState(code);
         default:
             // Optionally handle unknown state
             break;
@@ -75,6 +78,41 @@ private void handleTitleState(int code) {
     }
 }
 
+
+private void handleGameOverState(int code){
+if(code==KeyEvent.VK_W){
+    gp.ui.commandNum--;
+    if(gp.ui.commandNum<0){
+        gp.ui.commandNum=1;
+
+    }
+    gp.playSE(10);
+   
+}
+
+if(code==KeyEvent.VK_S){
+    gp.ui.commandNum++;
+    if(gp.ui.commandNum>1){
+        gp.ui.commandNum=1;
+
+    }
+    gp.playSE(10);
+
+}
+if(code==KeyEvent.VK_ENTER){
+    if(gp.ui.commandNum==0){
+        gp.gameState=GamePanel.playState;
+        gp.retry();
+    }else if (gp.ui.commandNum==1){
+        gp.gameState=GamePanel.titleState;
+        gp.stopMusic();
+        gp.playMusic(5);
+        gp.restart();
+    }
+}
+
+
+}
 private void handlePlayState(int code) {
     if(code == KeyEvent.VK_W) upPressed = true;
     if(code == KeyEvent.VK_S) downPressed = true;
