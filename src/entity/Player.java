@@ -194,7 +194,7 @@ if(currentWeapon.type==type_axe){
 
         }
         if(keyH.enterPressed==true && attackCanceled==false){
-            gp.swingPool.play();
+            gp.playSE(13);
             attacking=true;
             spritCounter=0;
         }
@@ -225,9 +225,9 @@ if(currentWeapon.type==type_axe){
         projectile.substractResource(this);
              gp.projectileList.add(projectile);
              shotAvailableCounter=0;
-             gp.firePool.play();
+             gp.playSE(15);
+    }
             
-             }
     //invincible state 
     if(invincible==true){
 
@@ -334,7 +334,7 @@ public void damageMonster(int i,int attack){
     if(i!=999){
         
     if(gp.monster[gp.currentMap][i].invincible==false){
-        gp.hitPool.play();
+        gp.playSE(14);
         int damage=attack-gp.monster[gp.currentMap][i].defense;
         if(damage<0) damage=0;
         gp.ui.addMessage(damage+" damage !");

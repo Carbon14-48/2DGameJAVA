@@ -51,7 +51,7 @@ public class EventHandler {
             else if(hit(0,22, 6, "any") == true) { healingPool(GamePanel.dialogueState); }
              else  if(hit(0,7, 39, "any") == true) { teleport(1, 12, 13, GamePanel.dialogueState); }
              else if(hit(1,8, 8, "any") == true) {  teleport(0, 8, 39, GamePanel.dialogueState); }
-            else if(hit(1,10, 39, "any") == true) { teleport(2, 12, 13, GamePanel.dialogueState);  
+            else if(hit(1,10, 39, "up") == true) { teleport(2, 12, 13, GamePanel.dialogueState);  
             }
             // MAP 2 EVENTS
             else if(hit(2,8, 11, "any") == true) { 

@@ -1,135 +1,127 @@
 package Sounds;
 
-
-import java.net.URL;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
-
+import kuusisto.tinysound.TinySound;
+import kuusisto.tinysound.Music;
 
 public class Sound {
-  private Clip clip;
-  
-    FloatControl fc;
-private URL soundURL[]= new URL[30];
-public int volumeScale=3;
-float volume;
-
- public Sound(){
-    soundURL[0]=getClass().getResource("/sounds/BlueBoyAdventure.wav");
-    soundURL[1]=getClass().getResource("/sounds/coin.wav");
-    soundURL[2]=getClass().getResource("/sounds/powerup.wav");
-    soundURL[3]=getClass().getResource("/sounds/unlock.wav");
-    soundURL[4]=getClass().getResource("/sounds/pause.wav");
-    soundURL[5]=getClass().getResource("/sounds/DawnOfNewTime_TitleScreenSound.wav");
-    soundURL[6]=getClass().getResource("/sounds/teleport.wav");
-    soundURL[7]=getClass().getResource("/sounds/damage.wav");
-    soundURL[8]= getClass().getResource("/sounds/Healing.wav");
-    soundURL[9]= getClass().getResource("/sounds/fanfare.wav");
-    soundURL[10]= getClass().getResource("/sounds/cursor.wav");
-    soundURL[11]= getClass().getResource("/sounds/fireball.wav");
-    soundURL[12]= getClass().getResource("/sounds/GameOver.wav");
-   
+    private kuusisto.tinysound.Sound[] sounds = new kuusisto.tinysound.Sound[30];
+    private Music currentMusic;
+    public int volumeScale = 3;
+    private double volume = 0.6;
     
- }
-
- public void setFile(int i){
-
-   try {
-      
-      if(soundURL[i] == null) {
-          System.out.println("Sound file at index " + i + " not found!");
-          return;
-      }
-      if(clip != null && clip.isOpen()) {
-          clip.close();
-      }
-      AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
-      clip = AudioSystem.getClip();
-      clip.open(ais);
-      fc=(FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
-      checkVolme();
-  } catch (Exception e) {
-      System.out.println("Error opening sound file at index " + i + ": " + e.getMessage());
-      e.printStackTrace();
-      clip = null;
-  }
-
- }
- public void playSE(int i) {
-    try {
-        if (soundURL[i] == null) {
-            System.out.println("Sound file at index " + i + " not found!");
-            return;
+    public Sound() {
+        TinySound.init();
+        loadAllSounds();
+    }
+    
+    private void loadAllSounds() {
+        try {
+            sounds[0] = TinySound.loadSound("/sounds/BlueBoyAdventure.wav");
+            sounds[1] = TinySound.loadSound("/sounds/coin.wav");
+            sounds[2] = TinySound.loadSound("/sounds/powerup.wav");
+            sounds[3] = TinySound.loadSound("/sounds/unlock.wav");
+            sounds[4] = TinySound.loadSound("/sounds/pause.wav");
+            sounds[5] = TinySound.loadSound("/sounds/DawnOfNewTime_TitleScreenSound.wav");
+            sounds[6] = TinySound.loadSound("/sounds/teleport.wav");
+            sounds[7] = TinySound.loadSound("/sounds/damage.wav");
+            sounds[8] = TinySound.loadSound("/sounds/Healing.wav");
+            sounds[9] = TinySound.loadSound("/sounds/fanfare.wav");
+            sounds[10] = TinySound.loadSound("/sounds/cursor.wav");
+            sounds[11] = TinySound.loadSound("/sounds/fireball.wav");
+            sounds[12] = TinySound.loadSound("/sounds/GameOver.wav");
+            
+            // Add your SoundPool sounds to the array
+            sounds[13] = TinySound.loadSound("/sounds/swinging.wav");
+            sounds[14] = TinySound.loadSound("/sounds/hitMonster.wav");
+            sounds[15] = TinySound.loadSound("/sounds/fireball.wav");
+            sounds[16] = TinySound.loadSound("/sounds/cutting.wav");
+            
+            checkVolme();
+            System.out.println("All sounds loaded with TinySound!");
+        } catch (Exception e) {
+            System.out.println("Error loading sounds: " + e.getMessage());
         }
-        AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
-        Clip tempClip = AudioSystem.getClip();
-        tempClip.open(ais);
+    }
     
-        FloatControl tempFC = (FloatControl)tempClip.getControl(FloatControl.Type.MASTER_GAIN);
-        float tempVolume;
+    public void setFile(int i) {
+        try {
+            if (currentMusic != null) {
+                currentMusic.stop();
+            }
+            
+            String[] musicPaths = {
+                "/sounds/BlueBoyAdventure.wav",
+                "/sounds/coin.wav",
+                "/sounds/powerup.wav",
+                "/sounds/unlock.wav", 
+                "/sounds/pause.wav",
+                "/sounds/DawnOfNewTime_TitleScreenSound.wav",
+                "/sounds/teleport.wav",
+                "/sounds/damage.wav",
+                "/sounds/Healing.wav",
+                "/sounds/fanfare.wav",
+                "/sounds/cursor.wav",
+                "/sounds/fireball.wav",
+                "/sounds/GameOver.wav"
+            };
+            
+            if (i >= 0 && i < musicPaths.length) {
+                currentMusic = TinySound.loadMusic(musicPaths[i]);
+            }
+        } catch (Exception e) {
+            System.out.println("Error setting music file: " + e.getMessage());
+        }
+    }
+    
+    public void play() {
+        if (currentMusic != null) {
+            currentMusic.stop(); // Stop first to apply new volume
+            currentMusic.play(false); // Play without volume parameter
+            currentMusic.setVolume(volume); // Set volume separately
+        }
+    }
+    
+    public void loop() {
+        if (currentMusic != null) {
+            currentMusic.stop(); // Stop first to apply new volume
+            currentMusic.play(true); // Loop without volume parameter
+            currentMusic.setVolume(volume); // Set volume separately
+        }
+    }
+    
+    public void stop() {
+        if (currentMusic != null) {
+            currentMusic.stop();
+        }
+    }
+    
+    public void playSE(int i) {
+        if (i >= 0 && i < sounds.length && sounds[i] != null) {
+            sounds[i].play(volume);
+        }
+    }
+    
+    public void checkVolme() {
         switch (volumeScale) {
-            case 0: tempVolume = -80; break;
-            case 1: tempVolume = -20; break;
-            case 2: tempVolume = -7; break;
-            case 3: tempVolume = -5; break;
-            case 4: tempVolume = 4; break;
-            case 5: tempVolume = 6; break;
-            default: tempVolume = -5; break;
+            case 0: volume = 0.0; break;
+            case 1: volume = 0.2; break;
+            case 2: volume = 0.4; break;
+            case 3: volume = 0.6; break;
+            case 4: volume = 0.8; break;
+            case 5: volume = 1.0; break;
+            default: volume = 0.6; break;
         }
-        tempFC.setValue(tempVolume);
         
-        tempClip.start();
-    } catch (Exception e) {
-        System.out.println("Error playing sound at index " + i + ": " + e.getMessage());
+        // UPDATE CURRENT MUSIC VOLUME IMMEDIATELY
+        if (currentMusic != null && currentMusic.playing()) {
+            currentMusic.setVolume(volume);
+        }
+    }
+    
+    public void cleanup() {
+        if (currentMusic != null) {
+            currentMusic.stop();
+        }
+        TinySound.shutdown();
     }
 }
-
- public void play(){
-    clip.start();
-
- }
- public  void loop(){
-    clip.loop(Clip.LOOP_CONTINUOUSLY);
-
- }
-
- public void stop(){
-    clip.stop();
-
-
-
- }
- public void checkVolme(){
-    switch ((volumeScale)) {
-        case 0://-80 6
-            volume=-80;
-            break;
-            case 1:
-            volume=20;
-            break;
-    
-            case 2:
-            volume=7;
-            break;
-    
-            case 3:
-            volume=-5;
-            break;
-            case 4:
-            volume=4;
-            break;
-            case 5:
-            volume=6;
-            break;
-    
-    
-    
-        
-    }
-    fc.setValue(volume);
- }
-}
-

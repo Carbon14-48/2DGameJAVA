@@ -4,13 +4,12 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import Sounds.SoundPool;
+
 
 public class KeyHandler implements KeyListener{
     public boolean upPressed , downPressed, leftPressed , rightPressed,enterPressed, shootKeyPressed;
     boolean checkDrawTime;
     GamePanel gp;
-    public SoundPool inventoryPool = new SoundPool(getClass().getResource("/sounds/cursor.wav"), 4);
 
 
     public KeyHandler(GamePanel gp){
@@ -53,12 +52,12 @@ public void keyPressed(KeyEvent e) {
 private void handleTitleState(int code) {
     if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
         gp.ui.commandNum--;
-        inventoryPool.play();
+        gp.playSE(10);
         if(gp.ui.commandNum < 0) gp.ui.commandNum = 2;
     }
     if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
         gp.ui.commandNum++;
-        inventoryPool.play();
+        gp.playSE(10);
         if(gp.ui.commandNum > 2) gp.ui.commandNum = 0;
     }
     if(code == KeyEvent.VK_ENTER) {
@@ -168,13 +167,13 @@ private void handlePauseState(int code) {
 private void handleCharacterState(int code) {
     if(code == KeyEvent.VK_C) {
         gp.gameState = GamePanel.playState;
-        inventoryPool.play();
+        gp.playSE(10);
         
     }
     if(code==KeyEvent.VK_W){
         if(gp.ui.slotRow!=0){
             gp.ui.slotRow--;
-            inventoryPool.play();
+            gp.playSE(10);
         }
         
         
@@ -182,19 +181,19 @@ private void handleCharacterState(int code) {
     if(code==KeyEvent.VK_A){
         if(gp.ui.slotCol!=0){
         gp.ui.slotCol--;
-        inventoryPool.play();
+        gp.playSE(10);
     }
     }
     if(code==KeyEvent.VK_S){
         if(gp.ui.slotRow!=3){
         gp.ui.slotRow++;
-        inventoryPool.play();
+        gp.playSE(10);
        
     }}
         if(code==KeyEvent.VK_D){
             if(gp.ui.slotCol!=4){
             gp.ui.slotCol++;
-            inventoryPool.play();
+            gp.playSE(10);
         }}
         if(code==KeyEvent.VK_ENTER){
            gp.player.selectItem();
@@ -246,29 +245,30 @@ public void optionsState(int code){
             if(gp.ui.commandNum==1&& gp.music.volumeScale>0){
                 gp.music.volumeScale--;
                 gp.music.checkVolme();
-                gp.playSE(10);
+                gp.playSE(10); // Play AFTER volume change
                 gp.conf.SaveConfig();
             }
             if(gp.ui.commandNum==2&& gp.se.volumeScale>0){
                 gp.se.volumeScale--;
-                
-                gp.playSE(10);
+                gp.se.checkVolme();
+                gp.playSE(10); // Play AFTER volume change
                 gp.conf.SaveConfig();
             }
         }
     }
+    
     if(code==KeyEvent.VK_D){
         if(gp.ui.subState==0){
             if(gp.ui.commandNum==1&& gp.music.volumeScale<5){
                 gp.music.volumeScale++;
                 gp.music.checkVolme();
-                gp.playSE(10);
+                gp.playSE(10); // Play AFTER volume change
                 gp.conf.SaveConfig();
             }
             if(gp.ui.commandNum==2&& gp.se.volumeScale<5){
                 gp.se.volumeScale++;
-            
-                gp.playSE(10);
+                gp.se.checkVolme(); // Apply new volume FIRST
+                gp.playSE(10); // Then play cursor at NEW volume
                 gp.conf.SaveConfig();
             }
         }

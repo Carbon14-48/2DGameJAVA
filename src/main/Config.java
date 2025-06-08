@@ -51,10 +51,17 @@ public class Config {
             //music volume
             s=br.readLine();
             gp.music.volumeScale=Integer.parseInt(s);
+            gp.music.checkVolme(); // APPLY THE LOADED MUSIC VOLUME
+            
             //se volume
             s=br.readLine();
             gp.se.volumeScale=Integer.parseInt(s);
+            gp.se.checkVolme(); // APPLY THE LOADED SE VOLUME
+            
             br.close();
+            
+            System.out.println("Config loaded - Music volume: " + gp.music.volumeScale + ", SE volume: " + gp.se.volumeScale);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

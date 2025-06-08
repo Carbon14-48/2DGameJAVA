@@ -23,7 +23,7 @@ public class IT_DryTree  extends InteractiveTile{
         return isCorrectItem;
      }
      public void playSE(){
-        gp.cuttingPool.play();
+        gp.playSE(16);
      }
      public InteractiveTile getDestroyedForm(){
         InteractiveTile tile =new IT_Trunk(gp, worldX/gp.tileSize, worldY/gp.tileSize);
