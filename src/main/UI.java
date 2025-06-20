@@ -273,12 +273,12 @@ if(gp.fullScreenOn==true) g2.fillRect(textX, textY, 24, 24);
       //music volume
       textY+=gp.tileSize;
       g2.drawRect(textX, textY, 120, 24);
-      int volumeWidth =24*gp.music.volumeScale;
+      int volumeWidth =24*gp.soundManager.getMusicVolumeScale();
       g2.fillRect(textX, textY, volumeWidth, 24);
       //se volume
       textY+=gp.tileSize;
       g2.drawRect(textX, textY, 120, 24);
-     volumeWidth =24*gp.se.volumeScale;
+     volumeWidth =24*gp.soundManager.getSEVolumeScale();
       g2.fillRect(textX, textY, volumeWidth, 24);
     
       }

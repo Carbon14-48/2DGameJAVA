@@ -24,10 +24,10 @@ public class Config {
             }
             bw.newLine();
             //save music volume
-            bw.write(String.valueOf(gp.music.volumeScale));
+            bw.write(String.valueOf(gp.soundManager.getMusicVolumeScale()));
             bw.newLine();
             //se volume
-            bw.write(String.valueOf(gp.se.volumeScale));
+            bw.write(String.valueOf(gp.soundManager.getMusicVolumeScale()));
             bw.newLine();
             bw.close();
             System.out.println("Conf saved seccesufully");
@@ -50,18 +50,16 @@ public class Config {
 
             //music volume
             s=br.readLine();
-            gp.music.volumeScale=Integer.parseInt(s);
-            gp.music.checkVolme(); // APPLY THE LOADED MUSIC VOLUME
+            int musicVol = Integer.parseInt(s);
+            gp.soundManager.setMusicVolume(musicVol);
             
-            //se volume
-            s=br.readLine();
-            gp.se.volumeScale=Integer.parseInt(s);
-            gp.se.checkVolme(); // APPLY THE LOADED SE VOLUME
+            s = br.readLine();
+            int seVol = Integer.parseInt(s);
+            gp.soundManager.setSEVolume(seVol);
             
             br.close();
             
-            System.out.println("Config loaded - Music volume: " + gp.music.volumeScale + ", SE volume: " + gp.se.volumeScale);
-            
+            System.out.println("Config loaded - Music volume: " + musicVol + ", SE volume: " + seVol);            
         } catch (Exception e) {
             e.printStackTrace();
         }

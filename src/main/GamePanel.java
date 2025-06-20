@@ -2,7 +2,8 @@ package main;
 
 import javax.swing.JPanel;
 
-import Sounds.Sound;
+
+import Sounds.SoundManager;
 // Remove this import: import Sounds.SoundPool;
 import entity.Entity;
 import entity.Player;
@@ -72,8 +73,7 @@ public ArrayList<Entity> projectileList=new ArrayList<>();
 public ArrayList<Entity> particlesList=new ArrayList<>();
 
 //sound 
-Sound music = new Sound();
-public Sound se = new Sound();
+public final SoundManager soundManager = SoundManager.getInstance();
 
 // DELETE THESE 4 LINES:
 // public SoundPool swingPool;
@@ -299,17 +299,16 @@ public Sound se = new Sound();
     }
 
     public void playMusic(int i){
-        music.setFile(i);
-        music.play();
-        music.loop();
+        soundManager.playMusic(i);
+        soundManager.loopMusic(i);
     }
 
     public void stopMusic(){
-        music.stop();
+        soundManager.stopMusic();
     }
 
     public void playSE(int i){
-        se.playSE(i);
+        soundManager.playSE(i);
     }
  
 }

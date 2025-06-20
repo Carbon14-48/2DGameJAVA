@@ -242,15 +242,14 @@ public void optionsState(int code){
     }
     if(code==KeyEvent.VK_A){
         if(gp.ui.subState==0){
-            if(gp.ui.commandNum==1&& gp.music.volumeScale>0){
-                gp.music.volumeScale--;
-                gp.music.checkVolme();
+            if(gp.ui.commandNum==1&& gp.soundManager.getMusicVolumeScale()>0){
+                System.out.println("Decreasing MUSIC volume");
+                gp.soundManager.setMusicVolume(gp.soundManager.getMusicVolumeScale() - 1);
                 gp.playSE(10); // Play AFTER volume change
                 gp.conf.SaveConfig();
             }
-            if(gp.ui.commandNum==2&& gp.se.volumeScale>0){
-                gp.se.volumeScale--;
-                gp.se.checkVolme();
+            else if(gp.ui.commandNum==2 && gp.soundManager.getSEVolumeScale()>0){
+                gp.soundManager.setSEVolume(gp.soundManager.getSEVolumeScale() - 1);
                 gp.playSE(10); // Play AFTER volume change
                 gp.conf.SaveConfig();
             }
@@ -259,16 +258,16 @@ public void optionsState(int code){
     
     if(code==KeyEvent.VK_D){
         if(gp.ui.subState==0){
-            if(gp.ui.commandNum==1&& gp.music.volumeScale<5){
-                gp.music.volumeScale++;
-                gp.music.checkVolme();
+            if(gp.ui.commandNum==1 && gp.soundManager.getMusicVolumeScale()<5){
+                System.out.println("Decreasing SE volume");
+                gp.soundManager.setMusicVolume(gp.soundManager.getMusicVolumeScale() + 1);
                 gp.playSE(10); // Play AFTER volume change
                 gp.conf.SaveConfig();
             }
-            if(gp.ui.commandNum==2&& gp.se.volumeScale<5){
-                gp.se.volumeScale++;
-                gp.se.checkVolme(); // Apply new volume FIRST
-                gp.playSE(10); // Then play cursor at NEW volume
+
+           else  if(gp.ui.commandNum==2 && gp.soundManager.getSEVolumeScale()<5){
+                gp.soundManager.setSEVolume(gp.soundManager.getSEVolumeScale() + 1);
+                gp.playSE(10); // Play AFTER volume change
                 gp.conf.SaveConfig();
             }
         }
