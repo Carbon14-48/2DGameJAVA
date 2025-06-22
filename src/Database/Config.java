@@ -4,17 +4,49 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
+import Observer.*;
+
 
 import main.GamePanel;
 
 
 public class Config {
-    GamePanel gp;
+    public GamePanel gp;
     private ConfigDAO dao;
     public Config(GamePanel gp, ConfigDAO dao) {
         this.gp = gp;
         this.dao = dao;
     }
+
+    private List<ConfigObserver> observers = new ArrayList<>();
+    // --- Observer Methods ---
+    public void addObserver(ConfigObserver observer) {
+        observers.add(observer);
+    }
+    public void removeObserver(ConfigObserver observer) {
+        observers.remove(observer);
+    }
+    private void notifyObservers() {
+        for (ConfigObserver obs : observers) {
+            obs.onConfigChanged(this);
+        }
+    }
+/////observers logic
+    public void setMusicVolume(int newVol) {
+        gp.soundManager.setMusicVolume(newVol);
+        notifyObservers();
+    }
+    public void setSEVolume(int newVol) {
+        gp.soundManager.setSEVolume(newVol);
+        notifyObservers();
+    }
+    public void setFullScreen(boolean full) {
+        gp.fullScreenOn = full;
+        notifyObservers();
+    }
+
     public void SaveConfig() {
         if (dao != null) {
             // Save to DB
@@ -89,4 +121,5 @@ public class Config {
             e.printStackTrace();
         }
     }}
+  
 }

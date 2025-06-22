@@ -1,10 +1,8 @@
-package main;
+package Database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-import Database.ConfigDAO;
 
 public class ConfigDAOMySQL implements ConfigDAO {
     private Connection conn;

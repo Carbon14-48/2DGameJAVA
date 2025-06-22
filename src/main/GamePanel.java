@@ -75,12 +75,6 @@ public ArrayList<Entity> particlesList=new ArrayList<>();
 //sound 
 public final SoundManager soundManager = SoundManager.getInstance();
 
-// DELETE THESE 4 LINES:
-// public SoundPool swingPool;
-// public SoundPool hitPool;
-// public SoundPool firePool;
-// public SoundPool cuttingPool;
-
 ///gAME STATE 
  public int gameState;
  public  static final int titleState=0;

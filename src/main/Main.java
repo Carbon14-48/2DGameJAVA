@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import Database.Config;
 import Database.ConfigDAO;
+import Database.ConfigDAOMySQL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,7 +29,8 @@ public class Main {
 
         Config config = new Config(gamePanel, dao);
         gamePanel.conf = config;
-
+        gamePanel.conf.addObserver(gamePanel.soundManager);
+        gamePanel.conf.addObserver(gamePanel.ui);
         // ... rest of your code unchanged ...
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

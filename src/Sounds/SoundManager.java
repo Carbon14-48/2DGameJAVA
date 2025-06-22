@@ -1,6 +1,9 @@
 package Sounds;
 
-public class SoundManager {
+import Database.Config;
+import Observer.ConfigObserver;
+
+public class SoundManager implements ConfigObserver {
     private static SoundManager instance;
     private Sound music;
     private Sound se;
@@ -59,4 +62,11 @@ public class SoundManager {
         music.cleanup();
         se.cleanup();
     }
+    @Override
+    public void onConfigChanged(Config config) {
+        // Update volumes from config
+        setMusicVolume(config.gp.soundManager.getMusicVolumeScale());
+        setSEVolume(config.gp.soundManager.getSEVolumeScale());
+    }
+
 }

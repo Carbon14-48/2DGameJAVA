@@ -221,8 +221,6 @@ public void optionsState(int code){
         case 1: maxCommandNum = 0; break; // Fullscreen notification
         case 2: maxCommandNum = 0; break; // Control screen
         case 3: maxCommandNum = 1; break;
-    
-        
     }
     if(code==KeyEvent.VK_W){
         gp.playSE(10);
@@ -230,7 +228,6 @@ public void optionsState(int code){
         if(gp.ui.commandNum<0){
             gp.ui.commandNum=maxCommandNum;
         }
-
     }
     if(code==KeyEvent.VK_S){
         gp.playSE(10);
@@ -238,18 +235,17 @@ public void optionsState(int code){
         if(gp.ui.commandNum>maxCommandNum){
             gp.ui.commandNum=0;
         }
-            
     }
     if(code==KeyEvent.VK_A){
         if(gp.ui.subState==0){
             if(gp.ui.commandNum==1&& gp.soundManager.getMusicVolumeScale()>0){
                 System.out.println("Decreasing MUSIC volume");
-                gp.soundManager.setMusicVolume(gp.soundManager.getMusicVolumeScale() - 1);
+                gp.conf.setMusicVolume(gp.soundManager.getMusicVolumeScale() - 1); // CHANGED LINE
                 gp.playSE(10); // Play AFTER volume change
                 gp.conf.SaveConfig();
             }
             else if(gp.ui.commandNum==2 && gp.soundManager.getSEVolumeScale()>0){
-                gp.soundManager.setSEVolume(gp.soundManager.getSEVolumeScale() - 1);
+                gp.conf.setSEVolume(gp.soundManager.getSEVolumeScale() - 1); // CHANGED LINE
                 gp.playSE(10); // Play AFTER volume change
                 gp.conf.SaveConfig();
             }
@@ -259,14 +255,13 @@ public void optionsState(int code){
     if(code==KeyEvent.VK_D){
         if(gp.ui.subState==0){
             if(gp.ui.commandNum==1 && gp.soundManager.getMusicVolumeScale()<5){
-                System.out.println("Decreasing SE volume");
-                gp.soundManager.setMusicVolume(gp.soundManager.getMusicVolumeScale() + 1);
+                System.out.println("Increasing MUSIC volume");
+                gp.conf.setMusicVolume(gp.soundManager.getMusicVolumeScale() + 1); // CHANGED LINE
                 gp.playSE(10); // Play AFTER volume change
                 gp.conf.SaveConfig();
             }
-
            else  if(gp.ui.commandNum==2 && gp.soundManager.getSEVolumeScale()<5){
-                gp.soundManager.setSEVolume(gp.soundManager.getSEVolumeScale() + 1);
+                gp.conf.setSEVolume(gp.soundManager.getSEVolumeScale() + 1); // CHANGED LINE
                 gp.playSE(10); // Play AFTER volume change
                 gp.conf.SaveConfig();
             }

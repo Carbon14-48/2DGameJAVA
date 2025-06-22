@@ -5,11 +5,13 @@ import java.io.InputStream;
 
 import java.util.ArrayList;
 
+import Database.Config;
 import Object.OBJ_Heart;
 import Object.OBJ_ManaCrystal;
+import Observer.ConfigObserver;
 import entity.Entity;
 
-public class UI {
+public class UI implements ConfigObserver{
     GamePanel gp;
     Font maruMonica;
    Graphics2D g2;
@@ -584,5 +586,12 @@ return itemIndex;
           subState=0;
         }
       }
+    }
+    @Override
+    public void onConfigChanged(Config config) {
+        
+        addMessage("Config changed! Music: " + gp.soundManager.getMusicVolumeScale() +
+                   ", SE: " + gp.soundManager.getSEVolumeScale());
+        System.out.println("Config changed! (UI observer notified)");
     }
 }
