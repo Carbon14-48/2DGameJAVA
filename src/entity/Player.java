@@ -474,15 +474,10 @@ public void checkLevelUp(){
         if(invincible==true){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
         }
-        
-        // Draw with the calculated dimensions instead of forcing gp.tileSize x gp.tileSize
+
         g2.drawImage(image, drawX, drawY, drawWidth, drawHeight, null);
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         
-        /* 
-         CHECK COLLISION 
-        g2.setColor(Color.red);
-        g2.drawRect(screenX+solidArea.x,screenY+solidArea.y, solidArea.width,solidArea.height);*/ 
     }
     
 }
