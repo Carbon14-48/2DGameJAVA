@@ -242,7 +242,7 @@ if(currentWeapon.type==type_axe){
     }
 
     if(life<=0){
-        gp.gameState=GamePanel.gameOverState;
+        gp.setGameState(gp.gameOverState);
         gp.playSE(12);
     }
     }
@@ -306,7 +306,7 @@ public void interactNPC(int i){
     if(gp.keyH.enterPressed==true){
         if(i!=999){
             attackCanceled=true;
-            gp.gameState=GamePanel.dialogueState;
+            gp.setGameState(gp.dialogueState);
             gp.npc[gp.currentMap][i].speak();
     
         }
@@ -364,7 +364,7 @@ public void checkLevelUp(){
         attack=getAttack();
         defense=getDefense();
         gp.playSE(9);
-        gp.gameState=GamePanel.dialogueState;
+        gp.setGameState(gp.dialogueState);
         gp.ui.currentDialogue=" You ARE LEVEL "+level+" NOW \n"+" YOU ARE NOW STRONGER";
     }
 }

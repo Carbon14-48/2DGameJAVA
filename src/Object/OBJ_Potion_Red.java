@@ -17,7 +17,7 @@ public class OBJ_Potion_Red extends Entity{
         description="A glowing red potion\n that fills you with life ";
     }
     public void use(Entity entity){
-        gp.gameState=GamePanel.dialogueState;
+        gp.setGameState(gp.dialogueState);
         gp.ui.currentDialogue="A fiery warmth rushes through \n MANA RESTORED";
         entity.life+=value;
         if(gp.player.life>gp.player.maxLife){

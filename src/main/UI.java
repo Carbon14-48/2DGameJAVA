@@ -25,7 +25,7 @@ public class UI implements ConfigObserver{
     public  int commandNum =0;
     public int slotCol=0;
     public int slotRow=0;
-    int subState=0;
+    public int subState=0;
 
     public UI(GamePanel gp){
     
@@ -55,32 +55,32 @@ public class UI implements ConfigObserver{
       g2.setColor(Color.BLUE);
       //titleState
 
-      if(gp.gameState==GamePanel.titleState){
+      if(gp.currentState == gp.titleState){
         titleScreen.drawTitleScreen(g2,commandNum);
       }
       ///play state
-      if(gp.gameState==GamePanel.playState){
+      if(gp.currentState == gp.playState){
         drawPLayerLife();
         drawMessage();
       }
       //pause state 
-      if(gp.gameState==GamePanel.pauseState){
+      if(gp.currentState==gp.pauseState){
         drawPLayerLife();
         drawPauseScreen();
       }
       //dialogue state
-      if(gp.gameState==GamePanel.dialogueState){
+      if(gp.currentState==gp.dialogueState){
         drawPLayerLife();
         drawDialogueScreen();
       }
-      if(gp.gameState == GamePanel.characterState){
+      if(gp.currentState == gp.characterState){
         drawCharacterScreen();
         drawInventory();
       }
-      if(gp.gameState==GamePanel.OptionsState){
+      if(gp.currentState==gp.optionsState){
         drawOptionsScreen();
       }
-      if(gp.gameState==GamePanel.gameOverState){
+      if(gp.currentState==gp.gameOverState){
         drawGameOverScreen();
       }
 
@@ -260,8 +260,8 @@ commandNum=0;
     if(commandNum==5){
       g2.drawString(">", textX-25, textY);   
       if(gp.keyH.enterPressed==true){
-        gp.gameState=GamePanel.playState;
-        commandNum=0;
+        gp.setGameState(gp.playState);
+                commandNum=0;
         subState=0;
       }
          }
@@ -520,7 +520,7 @@ if(gp.fullScreenOn==true) g2.fillRect(textX, textY, 24, 24);
       g2.drawString(">", textX-25, textY);
       if(gp.keyH.enterPressed==true){
         subState=0;
-        gp.gameState=GamePanel.titleState;
+        gp.setGameState(gp.titleState);
         commandNum=0;
         gp.stopMusic();
             gp.playMusic(5);
