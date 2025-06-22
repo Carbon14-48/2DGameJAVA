@@ -58,7 +58,7 @@ public int currentMap=0;
       public   Player player = new Player(this, keyH);
 
       public EventHandler eventHandler = new EventHandler(this);
-    public  Config conf = new Config(this);
+      public Config conf;
     Thread gameThread;
  public  CollisionChecker cChecker=new CollisionChecker(this);
  public UI ui = new UI(this);
