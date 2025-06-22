@@ -1,9 +1,11 @@
-package main;
+package Database;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+
+import main.GamePanel;
 
 
 public class Config {

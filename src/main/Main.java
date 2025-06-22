@@ -1,6 +1,10 @@
 package main;
 
 import javax.swing.JFrame;
+
+import Database.Config;
+import Database.ConfigDAO;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 

@@ -2,7 +2,7 @@ package main;
 
 import javax.swing.JPanel;
 
-
+import Database.Config;
 import Sounds.SoundManager;
 // Remove this import: import Sounds.SoundPool;
 import entity.Entity;
@@ -51,7 +51,7 @@ public int currentMap=0;
     int screenHeight2=screenHeight;
     BufferedImage tempScreen;
     Graphics2D g2;
-    boolean fullScreenOn=false;
+    public boolean fullScreenOn=false;
     //tile manager
     TileManager tileM = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
