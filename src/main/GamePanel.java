@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable{
+    private static GamePanel instance;
     final int originalTileSize = 16;
     final int scale = 3;
 
@@ -85,7 +86,7 @@ public final SoundManager soundManager = SoundManager.getInstance();
  public static final int OptionsState=5;
  public static final int gameOverState=6;
  
-    public GamePanel(){
+    private GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
@@ -93,6 +94,12 @@ public final SoundManager soundManager = SoundManager.getInstance();
         this.setFocusable(true);
     }
 
+    public static GamePanel getInstance() {
+        if (instance == null) {
+            instance = new GamePanel();
+        }
+        return instance;
+    }
     public void retry(){
         player.restoreLifeAndMana();
         player.setDefaultPositions();

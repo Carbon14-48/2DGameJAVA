@@ -13,7 +13,7 @@ public class Main {
     public static JFrame window;
     public static void main(String[] args) {
         ConfigDAO dao = null;
-        GamePanel gamePanel = new GamePanel();
+        GamePanel gamePanel = GamePanel.getInstance();
 
         // Try connecting to MySQL first
         try {
