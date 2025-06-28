@@ -21,7 +21,7 @@ public class Config {
     }
 
     private List<ConfigObserver> observers = new ArrayList<>();
-    // --- Observer Methods ---
+   
     public void addObserver(ConfigObserver observer) {
         observers.add(observer);
     }
@@ -33,7 +33,7 @@ public class Config {
             obs.onConfigChanged(this);
         }
     }
-/////observers logic
+    
     public void setMusicVolume(int newVol) {
         gp.soundManager.setMusicVolume(newVol);
         notifyObservers();

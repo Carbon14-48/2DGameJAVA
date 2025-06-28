@@ -48,7 +48,7 @@ public class SoundManager implements ConfigObserver {
         se.checkVolme();
     }
 
-    // === ADD THESE GETTERS ===
+   
     public int getMusicVolumeScale() {
         return music.volumeScale;
     }
@@ -56,7 +56,7 @@ public class SoundManager implements ConfigObserver {
     public int getSEVolumeScale() {
         return se.volumeScale;
     }
-    // === END GETTERS ===
+   
 
     public void cleanup() {
         music.cleanup();

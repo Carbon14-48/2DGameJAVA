@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import Database.Config;
 import Database.ConfigDAO;
 import Database.ConfigDAOMySQL;
+import Observer.LevelScreenManager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,7 +16,7 @@ public class Main {
         ConfigDAO dao = null;
         GamePanel gamePanel = GamePanel.getInstance();
 
-        // Try connecting to MySQL first
+        //connection a my sql
         try {
             Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/Game", "root", ""
@@ -23,7 +24,7 @@ public class Main {
             dao = new ConfigDAOMySQL(conn);
             System.out.println("Connected to database, using MySQL for config.");
         } catch (Exception e) {
-            System.err.println("Could not connect to database, using legacy file config instead.");
+            System.err.println("Could not connect to database, using file config instead.");
             e.printStackTrace();
         }
 
@@ -31,7 +32,8 @@ public class Main {
         gamePanel.conf = config;
         gamePanel.conf.addObserver(gamePanel.soundManager);
         gamePanel.conf.addObserver(gamePanel.ui);
-        // ... rest of your code unchanged ...
+        LevelScreenManager levelScreenManager = new LevelScreenManager();
+        gamePanel.player.addLevelObserver(levelScreenManager);
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);

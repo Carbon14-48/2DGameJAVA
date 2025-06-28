@@ -12,7 +12,7 @@ public class EventRect extends Rectangle {
         this.eventRectDefaultY = 23;
         this.x = eventRectDefaultX;
         this.y = eventRectDefaultY;
-        this.width =48;   // Full tile size (gp.tileSize)
+        this.width =48;
     this.height = 48;
     }
 }

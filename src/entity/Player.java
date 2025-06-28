@@ -16,6 +16,8 @@ import Object.OBJ_Key;
 import Object.OBJ_Shield_Wood;
 import Object.OBJ_Sword_Normal;
 import main.GamePanel;
+import Observer.LevelObserver;
+
 
 public class Player extends Entity{
    
@@ -314,6 +316,20 @@ public void interactNPC(int i){
 }
     
     
+
+private ArrayList<LevelObserver> levelObservers = new ArrayList<>();
+
+public void addLevelObserver(LevelObserver observer) {
+    levelObservers.add(observer);
+}
+public void removeLevelObserver(LevelObserver observer) {
+    levelObservers.remove(observer);
+}
+private void notifyLevelUp(int newLevel) {
+    for (LevelObserver obs : levelObservers) {
+        obs.onLevelUp(this, newLevel);
+    }
+}
     
 
 
@@ -348,6 +364,7 @@ public void damageMonster(int i,int attack){
             gp.ui.addMessage("Exp + "+gp.monster[gp.currentMap][i].exp+"!");
             exp+=gp.monster[gp.currentMap][i].exp;
             checkLevelUp();
+            
         }
     }
     }
@@ -356,18 +373,10 @@ public void damageMonster(int i,int attack){
 
 public void checkLevelUp(){
     if(exp>=nexLevelExp){
-        level++;
-        nexLevelExp=nexLevelExp*2;
-        maxLife+=2;
-        strength++;
-        dexterity++;
-        attack=getAttack();
-        defense=getDefense();
-        gp.playSE(9);
-        gp.setGameState(gp.dialogueState);
-        gp.ui.currentDialogue=" You ARE LEVEL "+level+" NOW \n"+" YOU ARE NOW STRONGER";
+        notifyLevelUp(level);
+     }
+        
     }
-}
     public void pickUpObject(int i){
         String text ;
         if(i!=999){

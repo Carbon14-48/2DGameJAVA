@@ -25,8 +25,8 @@ public class OptionsState implements GameState {
         int maxCommandNum =0;
         switch (gp.ui.subState) {
             case 0: maxCommandNum = 5; break;
-            case 1: maxCommandNum = 0; break; // Fullscreen notification
-            case 2: maxCommandNum = 0; break; // Control screen
+            case 1: maxCommandNum = 0; break; 
+            case 2: maxCommandNum = 0; break; 
             case 3: maxCommandNum = 1; break;
         }
         if(code==KeyEvent.VK_W){
@@ -47,13 +47,13 @@ public class OptionsState implements GameState {
             if(gp.ui.subState==0){
                 if(gp.ui.commandNum==1&& gp.soundManager.getMusicVolumeScale()>0){
                     System.out.println("Decreasing MUSIC volume");
-                    gp.conf.setMusicVolume(gp.soundManager.getMusicVolumeScale() - 1); // CHANGED LINE
-                    gp.playSE(10); // Play AFTER volume change
+                    gp.conf.setMusicVolume(gp.soundManager.getMusicVolumeScale() - 1); 
+                    gp.playSE(10); 
                     gp.conf.SaveConfig();
                 }
                 else if(gp.ui.commandNum==2 && gp.soundManager.getSEVolumeScale()>0){
-                    gp.conf.setSEVolume(gp.soundManager.getSEVolumeScale() - 1); // CHANGED LINE
-                    gp.playSE(10); // Play AFTER volume change
+                    gp.conf.setSEVolume(gp.soundManager.getSEVolumeScale() - 1); 
+                    gp.playSE(10); 
                     gp.conf.SaveConfig();
                 }
             }
@@ -62,13 +62,13 @@ public class OptionsState implements GameState {
             if(gp.ui.subState==0){
                 if(gp.ui.commandNum==1 && gp.soundManager.getMusicVolumeScale()<5){
                     System.out.println("Increasing MUSIC volume");
-                    gp.conf.setMusicVolume(gp.soundManager.getMusicVolumeScale() + 1); // CHANGED LINE
-                    gp.playSE(10); // Play AFTER volume change
+                    gp.conf.setMusicVolume(gp.soundManager.getMusicVolumeScale() + 1); 
+                    gp.playSE(10); 
                     gp.conf.SaveConfig();
                 }
-                else  if(gp.ui.commandNum==2 && gp.soundManager.getSEVolumeScale()<5){
-                    gp.conf.setSEVolume(gp.soundManager.getSEVolumeScale() + 1); // CHANGED LINE
-                    gp.playSE(10); // Play AFTER volume change
+        else  if(gp.ui.commandNum==2 && gp.soundManager.getSEVolumeScale()<5){
+                    gp.conf.setSEVolume(gp.soundManager.getSEVolumeScale() + 1); 
+                    gp.playSE(10);
                     gp.conf.SaveConfig();
                 }
             }

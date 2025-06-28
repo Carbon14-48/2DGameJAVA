@@ -29,8 +29,6 @@ public class Sound {
             sounds[10] = TinySound.loadSound("/sounds/cursor.wav");
             sounds[11] = TinySound.loadSound("/sounds/fireball.wav");
             sounds[12] = TinySound.loadSound("/sounds/GameOver.wav");
-            
-            // Add your SoundPool sounds to the array
             sounds[13] = TinySound.loadSound("/sounds/swinging.wav");
             sounds[14] = TinySound.loadSound("/sounds/hitMonster.wav");
             sounds[15] = TinySound.loadSound("/sounds/fireball.wav");
@@ -75,17 +73,17 @@ public class Sound {
     
     public void play() {
         if (currentMusic != null) {
-            currentMusic.stop(); // Stop first to apply new volume
-            currentMusic.play(false); // Play without volume parameter
-            currentMusic.setVolume(volume); // Set volume separately
+            currentMusic.stop(); 
+            currentMusic.play(false); 
+            currentMusic.setVolume(volume); 
         }
     }
     
     public void loop() {
         if (currentMusic != null) {
-            currentMusic.stop(); // Stop first to apply new volume
-            currentMusic.play(true); // Loop without volume parameter
-            currentMusic.setVolume(volume); // Set volume separately
+            currentMusic.stop(); 
+            currentMusic.play(true); 
+            currentMusic.setVolume(volume); 
         }
     }
     
@@ -112,7 +110,6 @@ public class Sound {
             default: volume = 0.6; break;
         }
         
-        // UPDATE CURRENT MUSIC VOLUME IMMEDIATELY
         if (currentMusic != null && currentMusic.playing()) {
             currentMusic.setVolume(volume);
         }

@@ -25,16 +25,16 @@ public class TitleState implements GameState {
         }
         if(code == KeyEvent.VK_ENTER) {
             switch(gp.ui.commandNum) {
-                case 0: // NEW GAME
+                case 0: 
                     gp.stopMusic();
                     gp.playMusic(0);
                     gp.setGameState(gp.playState);
                     gp.ui.commandNum=0;
                     break;
-                case 1: // LOAD GAME
+                case 1: 
                     System.out.println("Load Game selected");
                     break;
-                case 2: // QUIT
+                case 2: 
                     System.exit(0);
                     break;
             }

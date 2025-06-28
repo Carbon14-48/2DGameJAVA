@@ -33,8 +33,7 @@ public class EventHandler {
     }
     
     public void checkEvent() {
-        // Check the distance from the last event
-        int xDistance = Math.abs(gp.player.worldX - previousEventX);
+                int xDistance = Math.abs(gp.player.worldX - previousEventX);
         int yDistance = Math.abs(gp.player.worldY - previousEventY);
         int distance = Math.max(xDistance, yDistance);
         
@@ -48,7 +47,6 @@ public class EventHandler {
             else if(hit(0,7, 39, "any")) { teleport(1, 12, 13); }
             else if(hit(1,8, 8, "any")) { teleport(0, 8, 39); }
             else if(hit(1,10, 39, "up")) { teleport(2, 12, 13); }
-            // MAP 2 EVENTS
             else if(hit(2,8, 11, "any")) { teleport(1, 10, 40); }
         }
     }

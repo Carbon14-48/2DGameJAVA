@@ -196,7 +196,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        // Delegate update logic to the current state if you add update() to GameState
         if (currentState == playState) {
             player.update();
             eventHandler.checkEvent();
@@ -242,7 +241,6 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
         }
-        // You can add more if (currentState == ...) for other states if needed
     }
 
     public void setFullScreen() {
